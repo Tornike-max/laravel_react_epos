@@ -7,6 +7,7 @@ use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Support\SupportController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,6 +24,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,14 +32,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::resource('products', ProductController::class);
-    Route::resource('press-release', PressReleaseController::class);
-    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
-    Route::get('history', [HistoryController::class, 'index'])->name('history.index');
-    Route::get('support', [SupportController::class, 'index'])->name('support.index');
-    Route::post('support', [SupportController::class, 'store'])->name('support.store');
-});
+Route::resource('products', ProductController::class);
+Route::resource('press-release', PressReleaseController::class);
+Route::get('company', [CompanyController::class, 'index'])->name('company.index');
+Route::get('history', [HistoryController::class, 'index'])->name('history.index');
+Route::get('support', [SupportController::class, 'index'])->name('support.index');
+Route::post('support', [SupportController::class, 'store'])->name('support.store');
+
 
 
 

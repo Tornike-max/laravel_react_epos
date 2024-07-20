@@ -9,6 +9,7 @@ import {
 } from "./types";
 
 export interface User {
+    is_admin: number | boolean;
     id: number;
     name: string;
     email: string;

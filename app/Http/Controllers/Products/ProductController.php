@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -14,6 +15,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+
         $query = Product::query();
         $products = $query->paginate(9);
 
@@ -27,7 +29,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -35,7 +39,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -43,6 +49,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+
         return inertia('Products/Show', [
             'product' => new ProductResource($product),
         ]);
@@ -53,7 +60,9 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -61,7 +70,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -69,6 +80,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 }

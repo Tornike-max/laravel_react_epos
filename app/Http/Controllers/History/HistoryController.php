@@ -4,6 +4,7 @@ namespace App\Http\Controllers\History;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class HistoryController extends Controller
 {
@@ -20,7 +21,9 @@ class HistoryController extends Controller
      */
     public function create()
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -28,7 +31,9 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -44,7 +49,9 @@ class HistoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -52,7 +59,9 @@ class HistoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -60,6 +69,8 @@ class HistoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 }

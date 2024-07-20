@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PressReleaseResource;
 use App\Models\PressRelease;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PressReleaseController extends Controller
 {
@@ -26,7 +27,9 @@ class PressReleaseController extends Controller
      */
     public function create()
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -34,7 +37,9 @@ class PressReleaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -50,7 +55,9 @@ class PressReleaseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -58,7 +65,9 @@ class PressReleaseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 
     /**
@@ -66,6 +75,8 @@ class PressReleaseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
     }
 }
