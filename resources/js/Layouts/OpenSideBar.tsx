@@ -85,14 +85,15 @@ const OpenSideBar = ({
                         <span>Profile</span>
                         <HiOutlineUser className="w-6 h-6" />
                     </Link>
-                    <Link
-                        href={route("logout")}
-                        method="post"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
-                    >
-                        <span>Logout</span>
-                        <HiOutlineArrowLeftOnRectangle className="w-6 h-6" />
-                    </Link>
+                    <form action={route("logout")} method="POST">
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        >
+                            <span>Logout</span>
+                            <HiOutlineArrowLeftOnRectangle className="w-6 h-6" />
+                        </button>
+                    </form>
 
                     <button
                         onClick={() => setIsOpen(false)}

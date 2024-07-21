@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -58,22 +59,29 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
         if (!Gate::allows('admin')) {
             abort(403);
         }
-        return inertia('Products/Edit');
+
+        return inertia('Products/Edit', [
+            'product' => $product,
+            'csrfToken' => csrf_token(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
         if (!Gate::allows('admin')) {
             abort(403);
         }
+        $validatedData = $request->validated();
+        $product->update($validatedData);
+        return redirect()->route('admin')->with('success', 'Product updated successfully');
     }
 
     /**

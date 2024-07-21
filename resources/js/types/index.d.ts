@@ -5,6 +5,7 @@ import {
     PaginatedTypes,
     PressRelease,
     PressReleaseTypes,
+    Product,
     ProductType,
 } from "./types";
 
@@ -23,7 +24,7 @@ export type PageProps<
         user: User;
     };
     products?: PaginatedTypes;
-    product?: ProductType;
+    product?: Product;
     pressRelease?: PressReleaseTypes;
     data?: AboutType | HistoryType;
     productsCount?: number;
