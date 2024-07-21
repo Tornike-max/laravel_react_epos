@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PressReleaseResource;
+use App\Http\Resources\ProductResource;
+use App\Models\PressRelease;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,7 +20,19 @@ class AdminController extends Controller
         if (!Gate::allows('admin')) {
             abort(403);
         }
-        return inertia('Admin/Index');
+
+        $products = Product::query()->latest()->get();
+        $pressRelease = PressRelease::with('product')->latest()->get();
+
+        $productsCount = Product::query()->count();
+        $pressReleaseCount = PressRelease::with('product')->count();
+
+        return inertia('Admin/Index', [
+            'products' => ProductResource::collection($products),
+            'pressRelease' => PressReleaseResource::collection($pressRelease),
+            'productsCount' => $productsCount,
+            'pressReleaseCount' => $pressReleaseCount
+        ]);
     }
 
     /**

@@ -28,7 +28,7 @@ const OpenSideBar = ({
             <nav className="mt-5">
                 <ul className="flex flex-col gap-2">
                     <Link
-                        href={route("dashboard")}
+                        href={route("products.index")}
                         className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
                     >
                         <span>Web Site</span>
@@ -36,7 +36,9 @@ const OpenSideBar = ({
                     </Link>
                     <Link
                         href={route("admin")}
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 ${
+                            route("admin") ? "bg-blue-700" : ""
+                        } rounded pr-4`}
                     >
                         <span>Dashboard</span>
                         <MdOutlineSpaceDashboard className="w-6 h-6" />

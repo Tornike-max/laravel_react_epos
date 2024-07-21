@@ -8,7 +8,7 @@ const Pagination = ({ links }: { links: PaginationMetaLinks[] }) => {
                 links.map(
                     (link: { active: boolean; label: string; url: string }) => (
                         <Link
-                            href={link.label || ""}
+                            href={link.url}
                             key={link.url}
                             className={`inline-block py-2 px-3  hover:bg-slate-300 duration-300 transition-all rounded-lg text-gray-500 ${
                                 link.active ? "text-gray-900 bg-slate-300 " : ""

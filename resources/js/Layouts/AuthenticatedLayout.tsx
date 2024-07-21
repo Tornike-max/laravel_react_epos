@@ -29,13 +29,6 @@ export default function Authenticated({
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
-                                >
-                                    Dashboard
-                                </NavLink>
-
-                                <NavLink
                                     href={route("products.index")}
                                     active={route().current("products.index")}
                                 >
@@ -70,7 +63,10 @@ export default function Authenticated({
                         {user && user.is_admin === 1 ? (
                             <div className="hidden sm:flex sm:items-center sm:ms-6">
                                 <div className="ms-3 relative">
-                                    <Link href={route("admin")}>
+                                    <Link
+                                        className={`hover:text-blue-500 duration-300 transition-all font-semibold`}
+                                        href={route("admin")}
+                                    >
                                         Admin Panel
                                     </Link>
                                     {/* <Dropdown>

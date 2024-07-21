@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
 
         $query = Product::query();
-        $products = $query->paginate(9);
+        $products = $query->paginate(6);
 
         return inertia('Products/Index', [
             'products' => ProductResource::collection($products),
@@ -63,6 +63,7 @@ class ProductController extends Controller
         if (!Gate::allows('admin')) {
             abort(403);
         }
+        return inertia('Products/Edit');
     }
 
     /**

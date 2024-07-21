@@ -26,4 +26,6 @@ export type PageProps<
     product?: ProductType;
     pressRelease?: PressReleaseTypes;
     data?: AboutType | HistoryType;
+    productsCount?: number;
+    pressReleaseCount?: number;
 };

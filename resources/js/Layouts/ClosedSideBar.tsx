@@ -31,7 +31,7 @@ const ClosedSideBar = ({
                 <ul className="flex flex-col gap-2">
                     <Tooltip title="Go To Website" placement="right">
                         <Link
-                            href={route("dashboard")}
+                            href={route("products.index")}
                             className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
                         >
                             <MdOutlineWebAsset className="w-6 h-6" />

@@ -51,7 +51,7 @@ const Index = ({ auth, products }: PageProps) => {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {products &&
-                            products.data.map((product: Product) => (
+                            products.data.map((product) => (
                                 <Link
                                     href={route("products.show", product.id)}
                                     key={product.id}
