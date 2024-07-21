@@ -1,12 +1,7 @@
-import { SVGAttributes } from "react";
-
-export default function ApplicationLogo(props: SVGAttributes<SVGElement>) {
+export default function ApplicationLogo({ src }: { src: string }) {
     return (
         <>
-            <img
-                src={"/images/dark-epos.png"}
-                className="w-24 h-16 sm:w-28 sm:h-20"
-            />
+            <img src={src} className="w-24 h-16 sm:w-28 sm:h-20" />
         </>
     );
 }

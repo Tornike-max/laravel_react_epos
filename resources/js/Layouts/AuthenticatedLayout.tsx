@@ -23,7 +23,7 @@ export default function Authenticated({
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo src="/images/dark-epos.png" />
                                 </Link>
                             </div>
 
@@ -70,7 +70,10 @@ export default function Authenticated({
                         {user && user.is_admin === 1 ? (
                             <div className="hidden sm:flex sm:items-center sm:ms-6">
                                 <div className="ms-3 relative">
-                                    <Dropdown>
+                                    <Link href={route("admin")}>
+                                        Admin Panel
+                                    </Link>
+                                    {/* <Dropdown>
                                         <Dropdown.Trigger>
                                             <span className="inline-flex rounded-md">
                                                 <button
@@ -109,7 +112,7 @@ export default function Authenticated({
                                                 Log Out
                                             </Dropdown.Link>
                                         </Dropdown.Content>
-                                    </Dropdown>
+                                    </Dropdown> */}
                                 </div>
                             </div>
                         ) : (

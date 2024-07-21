@@ -67,7 +67,7 @@ const Index = ({ auth }: PageProps) => {
                                     onSubmit={handleSubmit(onSubmit)}
                                     className="max-w-2xl w-full flex justify-center items-center flex-col m-auto gap-2"
                                 >
-                                    <ApplicationLogo />
+                                    <ApplicationLogo src="/images/dark-epos.png" />
                                     <h1 className="font-semibold text-xl text-gray-800">
                                         Please fill out the form.
                                     </h1>

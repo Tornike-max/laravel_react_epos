@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\History\HistoryController;
 use App\Http\Controllers\PressRelease\PressReleaseController;
@@ -7,7 +8,6 @@ use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Support\SupportController;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,6 +23,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('admin', [AdminController::class, 'index'])->name('admin');
+});
 
 
 Route::middleware('auth')->group(function () {
