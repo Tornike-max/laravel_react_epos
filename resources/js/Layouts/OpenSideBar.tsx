@@ -1,4 +1,5 @@
 import { User } from "@/types";
+import LogoutButton from "@/ui/LogoutButton";
 import { Link } from "@inertiajs/react";
 import { AiOutlineTeam, AiOutlineProduct } from "react-icons/ai";
 import {
@@ -44,7 +45,7 @@ const OpenSideBar = ({
                         <MdOutlineSpaceDashboard className="w-6 h-6" />
                     </Link>
                     <Link
-                        href="/admin/team"
+                        href={route("team")}
                         className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
                     >
                         <span>Team</span>
@@ -85,15 +86,7 @@ const OpenSideBar = ({
                         <span>Profile</span>
                         <HiOutlineUser className="w-6 h-6" />
                     </Link>
-                    <form action={route("logout")} method="POST">
-                        <button
-                            type="submit"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
-                        >
-                            <span>Logout</span>
-                            <HiOutlineArrowLeftOnRectangle className="w-6 h-6" />
-                        </button>
-                    </form>
+                    <LogoutButton type="lg" />
 
                     <button
                         onClick={() => setIsOpen(false)}

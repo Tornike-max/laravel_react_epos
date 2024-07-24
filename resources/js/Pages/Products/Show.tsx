@@ -23,6 +23,11 @@ const Show = ({ auth, product }: PageProps) => {
         }
     }, [isInView]);
 
+    const handleNavigate = (url: string) => {
+        if (url === "") return;
+        window.location.href = url;
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -88,24 +93,24 @@ const Show = ({ auth, product }: PageProps) => {
                                         <HiOutlineVideoCamera />
                                         <span>Trailer</span>
                                     </button>
-                                    {/* {isOpen && (
-                                        <ModalComponent
-                                            isOpen={isOpen}
-                                            onOpenChange={onOpenChange}
-                                            title={productData.title}
-                                            video={productData.video}
-                                        />
-                                    )} */}
                                 </div>
 
                                 <div className="w-full flex items-center justify-center flex-col pt-4 gap-2">
-                                    <Link
-                                        href="#"
-                                        className="py-2 px-3 w-full rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center gap-2 text-slate-100 text-xs md:text-sm lg:text-base duration-300 transition-all"
+                                    <button
+                                        onClick={() =>
+                                            handleNavigate(
+                                                product?.gameUrl || ""
+                                            )
+                                        }
+                                        className={`py-2 px-3 w-full rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center gap-2 text-slate-100 text-xs md:text-sm lg:text-base duration-300 transition-all ${
+                                            product?.gameUrl
+                                                ? "cursor-pointer"
+                                                : "cursor-not-allowed"
+                                        }`}
                                     >
                                         <HiOutlineDocumentArrowDown />
                                         <span>Download apk for android</span>
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -11,8 +11,17 @@ class Product extends Model
         'title',
         'genre',
         'release',
-        'for', 'description', 'image', 'gameUrl'
+        'for',
+        'description',
+        'image',
+        'gameUrl',
+        'user_id'
     ];
 
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -27,6 +27,7 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'image' => $this->image,
             'gameUrl' => $this->gameUrl,
+            'user' => new UserResource($this->user),
             'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at' => (new Carbon($this->updated_at))->format('Y-m-d'),
         ];

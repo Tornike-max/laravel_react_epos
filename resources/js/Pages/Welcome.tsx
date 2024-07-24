@@ -4,6 +4,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import { AiOutlineProduct } from "react-icons/ai";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { IoBagOutline } from "react-icons/io5";
+import Footer from "@/ui/Footer";
 
 export default function Welcome({
     auth,
@@ -154,9 +155,7 @@ export default function Welcome({
                             </a>
                         </main>
 
-                        <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-                            Laravel v{laravelVersion} (PHP v{phpVersion})
-                        </footer>
+                        <Footer />
                     </div>
                 </div>
             </div>

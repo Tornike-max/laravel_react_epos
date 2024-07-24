@@ -42,8 +42,8 @@ export interface Product {
     release: string;
     for: string;
     description: string;
-    image?: string;
-    gameUrl?: string;
+    image: File | null;
+    gameUrl: string | null;
 }
 
 export interface PaginationLinks {

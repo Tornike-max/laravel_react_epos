@@ -1,4 +1,5 @@
 import { User } from "@/types";
+import LogoutButton from "@/ui/LogoutButton";
 import { Link } from "@inertiajs/react";
 import { Tooltip } from "@mui/material";
 import { AiOutlineTeam, AiOutlineProduct } from "react-icons/ai";
@@ -97,14 +98,7 @@ const ClosedSideBar = ({
                     </Tooltip>
 
                     <Tooltip title="Logout" placement="right">
-                        <form action={route("logout")} method="POST">
-                            <button
-                                type="submit"
-                                className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
-                            >
-                                <HiOutlineArrowLeftOnRectangle className="w-6 h-6" />
-                            </button>
-                        </form>
+                        <LogoutButton type="sm" />
                     </Tooltip>
                     <Tooltip title="Open" placement="right">
                         <button

@@ -1,8 +1,11 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { AiOutlineProduct } from "react-icons/ai";
 import { HiOutlineNewspaper } from "react-icons/hi2";
+import { FormEvent } from "react";
+import generateImagePath from "@/ui/generateImagePath";
+import Pagination from "@/ui/Pagination";
 
 export default function Index({
     auth,
@@ -10,12 +13,24 @@ export default function Index({
     pressRelease,
     productsCount,
     pressReleaseCount,
+    csrfToken,
 }: PageProps) {
+    const { delete: destroy, get } = useForm();
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>, productId: number) => {
+        e.preventDefault();
+        destroy(route("products.destroy", { product: productId }));
+    };
+
+    const handleNavigateToCreateForm = () => {
+        get(route("products.create"));
+    };
+
     return (
         <AdminLayout user={auth.user}>
             <Head title="Admin" />
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="w-full ">
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                             <div className="p-6 text-gray-900">
@@ -52,6 +67,14 @@ export default function Index({
                             </div>
                         </div>
                     </div>
+                    <div className="w-full flex justify-center items-center my-4">
+                        <button
+                            onClick={handleNavigateToCreateForm}
+                            className="w-full py-2 px-3 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
+                        >
+                            Create Product
+                        </button>
+                    </div>
                     <div className="w-full mt-6 bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                         <div className="p-6">
                             <h2 className="text-xl font-semibold mb-4">
@@ -62,6 +85,9 @@ export default function Index({
                                     <tr>
                                         <th className="py-2 px-4 border-b text-start">
                                             Image
+                                        </th>
+                                        <th className="py-2 px-4 border-b text-start">
+                                            Created By
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
                                             Product Name
@@ -89,9 +115,14 @@ export default function Index({
                                             >
                                                 <td className="py-2 px-4 border-b">
                                                     <img
-                                                        src={product.image}
+                                                        src={generateImagePath(
+                                                            product.image
+                                                        )}
                                                         className="w-12"
                                                     />
+                                                </td>
+                                                <td className="py-2 px-4 border-b">
+                                                    {product?.user?.name}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
                                                     {product?.title}
@@ -116,9 +147,18 @@ export default function Index({
                                                         >
                                                             Edit
                                                         </Link>
-                                                        <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
-                                                            Delete
-                                                        </button>
+                                                        <form
+                                                            onSubmit={(e) =>
+                                                                handleSubmit(
+                                                                    e,
+                                                                    product.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
+                                                                Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -128,6 +168,7 @@ export default function Index({
                         </div>
                     </div>
                 </div>
+                <Pagination links={products && products?.meta?.links} />
             </div>
         </AdminLayout>
     );

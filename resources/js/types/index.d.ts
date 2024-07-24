@@ -3,6 +3,8 @@ import {
     CompanyType,
     HistoryType,
     PaginatedTypes,
+    PaginationLinks,
+    PaginationMeta,
     PressRelease,
     PressReleaseTypes,
     Product,
@@ -29,4 +31,10 @@ export type PageProps<
     data?: AboutType | HistoryType;
     productsCount?: number;
     pressReleaseCount?: number;
+    csrfToken?: string;
+    team?: {
+        data: User[];
+        links: PaginationLinks;
+        meta: PaginationMeta;
+    };
 };

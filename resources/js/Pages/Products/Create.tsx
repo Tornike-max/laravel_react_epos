@@ -1,46 +1,16 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import InputError from "@/Components/InputError";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { PageProps } from "@/types";
 import { Product } from "@/types/types";
-import { Head, router, useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { motion } from "framer-motion";
-import React, { ChangeEvent, FormEvent } from "react";
 
-interface EditProps extends PageProps {
-    csrfToken: string;
-    product: Product;
-}
-
-const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
-    const { data, setData, post, errors, reset } = useForm({
-        image: "",
-        title: product.title || "",
-        genre: product.genre || "",
-        release: product.release || "",
-        for: product.for || "",
-        description: product.description || "",
-        gameUrl: "",
-        _method: "PUT",
-    });
-
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        setData(e.target.name, e.target.value);
-    };
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setData(e.target.name, e.target.files[0]);
-        }
-    };
-
-    const onSubmit = (e: FormEvent) => {
+const Create = ({ auth, csrfToken }: PageProps) => {
+    const { data, setData, post, errors, reset } = useForm<Product>();
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route("products.update", { product: product.id }));
+        post(route("products.store", []));
     };
-
     return (
         <AdminLayout user={auth.user}>
             <Head title="Edit Product" />
@@ -72,7 +42,7 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         value={csrfToken}
                                     />
                                     <h1 className="font-bold text-xl md:text-2xl text-gray-800">
-                                        Edit Form.
+                                        Create Product
                                     </h1>
                                     <div className="w-full">
                                         <label
@@ -84,16 +54,19 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         <input
                                             type="text"
                                             name="title"
-                                            defaultValue={product.title}
                                             id="title"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="Title"
-                                            onChange={handleChange}
+                                            value={data.title}
+                                            onChange={(e) =>
+                                                setData("title", e.target.value)
+                                            }
                                         />
                                         {errors.title && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.title}
-                                            </span>
+                                            <InputError
+                                                message={errors.title}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -108,15 +81,21 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                             type="text"
                                             name="genre"
                                             placeholder="Enter Genre"
-                                            defaultValue={product.genre}
+                                            value={data.genre}
                                             id="genre"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                setData(
+                                                    "genre",
+                                                    e.target.value
+                                                );
+                                            }}
                                         />
                                         {errors.genre && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.genre}
-                                            </span>
+                                            <InputError
+                                                message={errors.genre}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -131,15 +110,21 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                             type="date"
                                             name="release"
                                             placeholder="Enter Release"
-                                            defaultValue={product.release}
+                                            value={data.release}
                                             id="release"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                setData(
+                                                    "release",
+                                                    e.target.value
+                                                );
+                                            }}
                                         />
                                         {errors.release && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.release}
-                                            </span>
+                                            <InputError
+                                                message={errors.release}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -154,15 +139,18 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                             type="text"
                                             name="for"
                                             placeholder="Enter Operating System"
-                                            defaultValue={product.for}
+                                            value={data.for}
                                             id="for"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                setData("for", e.target.value);
+                                            }}
                                         />
                                         {errors.for && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.for}
-                                            </span>
+                                            <InputError
+                                                message={errors.for}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -176,15 +164,21 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         <textarea
                                             name="description"
                                             placeholder="Enter Description"
-                                            defaultValue={product.description}
+                                            value={data.description}
                                             id="description"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            onChange={handleChange}
+                                            onChange={(e) => {
+                                                setData(
+                                                    "description",
+                                                    e.target.value
+                                                );
+                                            }}
                                         ></textarea>
                                         {errors.description && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.description}
-                                            </span>
+                                            <InputError
+                                                message={errors.description}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -198,9 +192,11 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         <input
                                             type="text"
                                             name="gameUrl"
-                                            onChange={handleChange}
-                                            defaultValue={
-                                                product?.gameUrl || ""
+                                            onChange={(e) =>
+                                                setData(
+                                                    "gameUrl",
+                                                    e.target.value
+                                                )
                                             }
                                             placeholder="Enter Game URL"
                                             id="gameUrl"
@@ -222,15 +218,23 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         <input
                                             type="file"
                                             name="image"
-                                            onChange={handleFileChange}
                                             placeholder="Enter Image"
                                             id="image"
                                             className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "image",
+                                                    e.target.files
+                                                        ? e.target.files[0]
+                                                        : null
+                                                )
+                                            }
                                         />
                                         {errors.image && (
-                                            <span className="text-red-500 text-xs">
-                                                {errors.image}
-                                            </span>
+                                            <InputError
+                                                message={errors.image}
+                                                className="mt-2"
+                                            />
                                         )}
                                     </div>
 
@@ -238,7 +242,7 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
                                         type="submit"
                                         className="w-full bg-blue-500 hover:bg-blue-600 duration-300 transition-all py-2 px-3 text-slate-50 hover:text-slate-100 rounded-md"
                                     >
-                                        Save Changes
+                                        Create Product
                                     </button>
                                 </form>
                             </div>
@@ -250,4 +254,4 @@ const Edit: React.FC<EditProps> = ({ auth, product, csrfToken }) => {
     );
 };
 
-export default Edit;
+export default Create;
