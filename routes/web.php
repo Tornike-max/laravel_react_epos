@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('admin/press-release', [AdminController::class, 'pressRelease'])->name('admin.press');
     Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
+
+    Route::get('admin/company', [AdminController::class, 'company'])->name('admin.company');
 });
 
 

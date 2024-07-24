@@ -37,6 +37,8 @@ export type PageProps<
         meta: PaginationMeta;
     };
     data?: AboutType | HistoryType;
+    about?: AboutType;
+    history?: HistoryType;
     productsCount?: number;
     pressReleaseCount?: number;
     csrfToken?: string;

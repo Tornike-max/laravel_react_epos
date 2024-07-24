@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AboutResource;
+use App\Http\Resources\HistoryResource;
 use App\Http\Resources\PressReleaseResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\UserResource;
+use App\Models\About;
+use App\Models\History;
 use App\Models\PressRelease;
 use App\Models\Product;
 use App\Models\User;
@@ -84,5 +88,18 @@ class AdminController extends Controller
     public function pressReleaseDelete(PressRelease $press)
     {
         dd($press);
+    }
+
+    public function company()
+    {
+
+        // dd('help');
+        $aboutInfo = About::query()->first();
+        $history = History::query()->first();
+
+        return inertia('Admin/Company', [
+            'about' => new AboutResource($aboutInfo),
+            'history' => new HistoryResource($history)
+        ]);
     }
 }
