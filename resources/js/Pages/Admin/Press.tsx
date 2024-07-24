@@ -1,15 +1,16 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { PageProps } from "@/types";
+import { formatDate } from "@/ui/formatDate";
 import NoDataInfo from "@/ui/NoDataInfo";
 import Pagination from "@/ui/Pagination";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEvent } from "react";
 
-const Team = ({ auth, team }: PageProps) => {
+const Press = ({ auth, pressRelease }: PageProps) => {
     const { delete: destroy } = useForm();
-    const handleSubmit = (e: FormEvent<HTMLFormElement>, memberId: number) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>, pressId: number) => {
         e.preventDefault();
-        destroy(route("admin.destroy.member", { user: memberId }));
+        destroy(route("admin.press.delete", { press: pressId }));
     };
     return (
         <AdminLayout user={auth.user}>
@@ -19,7 +20,7 @@ const Team = ({ auth, team }: PageProps) => {
                     <div className="w-full mt-6 bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                         <div className="p-6">
                             <h2 className="text-xl font-semibold mb-4">
-                                Product List
+                                Press Releases List
                             </h2>
                             <table className="min-w-full bg-white">
                                 <thead>
@@ -28,13 +29,13 @@ const Team = ({ auth, team }: PageProps) => {
                                             Id
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Name
+                                            Date
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Email
+                                            Info
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Admin
+                                            Product Title
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
                                             Actions
@@ -42,25 +43,23 @@ const Team = ({ auth, team }: PageProps) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {team?.data.length !== 0 ? (
-                                        team?.data?.map((member) => (
+                                    {pressRelease?.data.length !== 0 ? (
+                                        pressRelease?.data?.map((press) => (
                                             <tr
-                                                key={member.id}
+                                                key={press.id}
                                                 className="hover:bg-gray-100 transition-colors"
                                             >
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.id}
+                                                    {press.id}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.name}
+                                                    {formatDate(press.date)}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.email}
+                                                    {press.info}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.is_admin === 1
-                                                        ? "Admin"
-                                                        : "Member"}
+                                                    {press.product.title}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
                                                     <div className="flex items-center justify-start gap-1 ">
@@ -74,7 +73,7 @@ const Team = ({ auth, team }: PageProps) => {
                                                             onSubmit={(e) =>
                                                                 handleSubmit(
                                                                     e,
-                                                                    member.id
+                                                                    press.id
                                                                 )
                                                             }
                                                         >
@@ -89,8 +88,8 @@ const Team = ({ auth, team }: PageProps) => {
                                     ) : (
                                         <NoDataInfo
                                             info="There are currently no
-                                                Team members to
-                                                display."
+                                                        press releases to
+                                                        display."
                                         />
                                     )}
                                 </tbody>
@@ -98,10 +97,10 @@ const Team = ({ auth, team }: PageProps) => {
                         </div>
                     </div>
                 </div>
-                <Pagination links={team?.meta?.links ?? []} />
+                <Pagination links={pressRelease?.meta?.links ?? []} />
             </div>
         </AdminLayout>
     );
 };
 
-export default Team;
+export default Press;

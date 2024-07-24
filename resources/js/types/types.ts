@@ -1,3 +1,5 @@
+import { User } from ".";
+
 export interface Square {
     id: string;
     src: string;
@@ -23,12 +25,6 @@ export interface PressRelease {
     updated_at: string;
 }
 
-export type PressReleaseDataType = {
-    id: number;
-    date: string;
-    info: string;
-};
-
 export type JobSearchType = {
     location: string;
     jobType: string;
@@ -36,6 +32,7 @@ export type JobSearchType = {
 };
 
 export interface Product {
+    user: User;
     id: number;
     title: string;
     genre: string;
@@ -57,7 +54,7 @@ export interface PaginationMeta {
     current_page: number;
     from: number;
     last_page: number;
-    links: PaginationMetaLinks;
+    links: PaginationMetaLinks[];
     path: string;
     per_page: number;
     to: number;

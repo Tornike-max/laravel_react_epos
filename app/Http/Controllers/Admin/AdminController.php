@@ -52,6 +52,37 @@ class AdminController extends Controller
 
     public function deleteTeamMember(User $user)
     {
-        dd('hello');
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+        if ($user->is_admin && $user->id === auth()->id()) {
+            abort(404);
+        };
+
+        $user->delete();
+        return to_route('admin.team')->with('success', 'Team member deleted successfully');
+    }
+
+    public function products()
+    {
+        $products = Product::query()->with('user')->latest()->paginate(9);
+
+        return inertia('Admin/Products', [
+            'products' => ProductResource::collection($products),
+        ]);
+    }
+
+    public function pressRelease()
+    {
+        $press = PressRelease::with('product')->latest()->paginate(10);
+
+        return inertia('Admin/Press', [
+            'pressRelease' => PressReleaseResource::collection($press)
+        ]);
+    }
+
+    public function pressReleaseDelete(PressRelease $press)
+    {
+        dd($press);
     }
 }

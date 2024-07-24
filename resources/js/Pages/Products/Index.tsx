@@ -67,7 +67,7 @@ const Index = ({ auth, products }: PageProps) => {
                             ))}
                     </div>
 
-                    <Pagination links={products && products?.meta?.links} />
+                    <Pagination links={products?.meta?.links ?? []} />
                 </div>
             </motion.div>
         </AuthenticatedLayout>

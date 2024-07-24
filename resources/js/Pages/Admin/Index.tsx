@@ -6,6 +6,7 @@ import { HiOutlineNewspaper } from "react-icons/hi2";
 import { FormEvent } from "react";
 import generateImagePath from "@/ui/generateImagePath";
 import Pagination from "@/ui/Pagination";
+import NoDataInfo from "@/ui/NoDataInfo";
 
 export default function Index({
     auth,
@@ -107,8 +108,8 @@ export default function Index({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products &&
-                                        products.data.map((product) => (
+                                    {products?.data.length !== 0 ? (
+                                        products?.data.map((product) => (
                                             <tr
                                                 key={product.id}
                                                 className="hover:bg-gray-100 transition-colors"
@@ -116,7 +117,9 @@ export default function Index({
                                                 <td className="py-2 px-4 border-b">
                                                     <img
                                                         src={generateImagePath(
-                                                            product.image
+                                                            String(
+                                                                product.image
+                                                            )
                                                         )}
                                                         className="w-12"
                                                     />
@@ -162,13 +165,20 @@ export default function Index({
                                                     </div>
                                                 </td>
                                             </tr>
-                                        ))}
+                                        ))
+                                    ) : (
+                                        <NoDataInfo
+                                            info="There are currently no
+                                                        Data to
+                                                        display."
+                                        />
+                                    )}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <Pagination links={products && products?.meta?.links} />
+                <Pagination links={products?.meta.links ?? []} />
             </div>
         </AdminLayout>
     );

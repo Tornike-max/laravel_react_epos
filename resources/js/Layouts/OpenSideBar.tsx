@@ -30,58 +30,76 @@ const OpenSideBar = ({
                 <ul className="flex flex-col gap-2">
                     <Link
                         href={route("products.index")}
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                            route().current("products.index")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Web Site</span>
                         <MdOutlineWebAsset className="w-6 h-6" />
                     </Link>
                     <Link
                         href={route("admin")}
-                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 ${
-                            route("admin") ? "bg-blue-700" : ""
-                        } rounded pr-4`}
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                            route().current("admin")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Dashboard</span>
                         <MdOutlineSpaceDashboard className="w-6 h-6" />
                     </Link>
                     <Link
-                        href={route("team")}
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        href={route("admin.team")}
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                            route().current("admin.team")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Team</span>
                         <AiOutlineTeam className="w-6 h-6" />
                     </Link>
                     <Link
                         href="/admin/products"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                            route().current("admin.products")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Products</span>
                         <AiOutlineProduct className="w-6 h-6" />
                     </Link>
                     <Link
-                        href="/admin/press"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        href={route("admin.press")}
+                        className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                            route().current("admin.press")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Press Release</span>
                         <HiOutlineNewspaper className="w-6 h-6" />
                     </Link>
                     <Link
                         href="/admin/company"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                     >
                         <span>Company</span>
                         <IoBagOutline className="w-6 h-6" />
                     </Link>
                     <Link
                         href="/admin/setting"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                     >
                         <span>Settings</span>
                         <IoSettingsOutline className="w-6 h-6" />
                     </Link>
                     <Link
                         href={route("profile.edit")}
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                     >
                         <span>Profile</span>
                         <HiOutlineUser className="w-6 h-6" />
@@ -90,7 +108,7 @@ const OpenSideBar = ({
 
                     <button
                         onClick={() => setIsOpen(false)}
-                        className="my-6 py-2 px-4 w-full hover:bg-blue-700 flex justify-center items-center rounded pr-4"
+                        className="my-6 py-2 px-4 w-full hover:bg-blue-500 flex justify-center items-center rounded pr-4"
                     >
                         <p>
                             <HiMiniChevronDoubleLeft className="w-6 h-6" />

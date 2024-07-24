@@ -33,7 +33,11 @@ const ClosedSideBar = ({
                     <Tooltip title="Go To Website" placement="right">
                         <Link
                             href={route("products.index")}
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("products.index")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <MdOutlineWebAsset className="w-6 h-6" />
                         </Link>
@@ -41,7 +45,11 @@ const ClosedSideBar = ({
                     <Tooltip title="Dashboard" placement="right">
                         <Link
                             href={route("admin")}
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <MdOutlineSpaceDashboard className="w-6 h-6" />
                         </Link>
@@ -49,8 +57,12 @@ const ClosedSideBar = ({
 
                     <Tooltip title="Team" placement="right">
                         <Link
-                            href="/admin/team"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            href={route("admin.team")}
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin.team")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <AiOutlineTeam className="w-6 h-6" />
                         </Link>
@@ -58,16 +70,24 @@ const ClosedSideBar = ({
 
                     <Tooltip title="Products" placement="right">
                         <Link
-                            href="/admin/products"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            href={route("admin.products")}
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin.products")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <AiOutlineProduct className="w-6 h-6" />
                         </Link>
                     </Tooltip>
                     <Tooltip title="Press Release" placement="right">
                         <Link
-                            href="/admin/press"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            href={route("admin.press")}
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin.press")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <HiOutlineNewspaper className="w-6 h-6" />
                         </Link>
@@ -75,7 +95,7 @@ const ClosedSideBar = ({
                     <Tooltip title="Company" placement="right">
                         <Link
                             href="/admin/company"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                         >
                             <IoBagOutline className="w-6 h-6" />
                         </Link>
@@ -83,7 +103,7 @@ const ClosedSideBar = ({
                     <Tooltip title="Settings" placement="right">
                         <Link
                             href="/admin/setting"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                         >
                             <IoSettingsOutline className="w-6 h-6" />
                         </Link>
@@ -91,7 +111,7 @@ const ClosedSideBar = ({
                     <Tooltip title="Profile" placement="right">
                         <Link
                             href="/admin/profile"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                         >
                             <HiOutlineUser className="w-6 h-6" />
                         </Link>
@@ -103,7 +123,7 @@ const ClosedSideBar = ({
                     <Tooltip title="Open" placement="right">
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="w-full mt-4 py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                            className="w-full mt-4 py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                         >
                             <HiMiniChevronDoubleRight className="w-6 h-6" />
                         </button>

@@ -1,11 +1,12 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { PageProps } from "@/types";
+import generateImagePath from "@/ui/generateImagePath";
 import NoDataInfo from "@/ui/NoDataInfo";
 import Pagination from "@/ui/Pagination";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEvent } from "react";
 
-const Team = ({ auth, team }: PageProps) => {
+const Team = ({ auth, products }: PageProps) => {
     const { delete: destroy } = useForm();
     const handleSubmit = (e: FormEvent<HTMLFormElement>, memberId: number) => {
         e.preventDefault();
@@ -25,16 +26,22 @@ const Team = ({ auth, team }: PageProps) => {
                                 <thead>
                                     <tr>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Id
+                                            Image
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Name
+                                            Created By
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Email
+                                            Product Name
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Admin
+                                            Category
+                                        </th>
+                                        <th className="py-2 px-4 border-b text-start">
+                                            For
+                                        </th>
+                                        <th className="py-2 px-4 border-b text-start">
+                                            Release
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
                                             Actions
@@ -42,30 +49,44 @@ const Team = ({ auth, team }: PageProps) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {team?.data.length !== 0 ? (
-                                        team?.data?.map((member) => (
+                                    {products?.data.length !== 0 ? (
+                                        products?.data.map((product) => (
                                             <tr
-                                                key={member.id}
+                                                key={product.id}
                                                 className="hover:bg-gray-100 transition-colors"
                                             >
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.id}
+                                                    <img
+                                                        src={generateImagePath(
+                                                            String(
+                                                                product.image
+                                                            )
+                                                        )}
+                                                        className="w-12"
+                                                    />
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.name}
+                                                    {product?.user?.name}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.email}
+                                                    {product?.title}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.is_admin === 1
-                                                        ? "Admin"
-                                                        : "Member"}
+                                                    {product.genre}
+                                                </td>
+                                                <td className="py-2 px-4 border-b">
+                                                    {product.for}
+                                                </td>
+                                                <td className="py-2 px-4 border-b">
+                                                    {product.release}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
                                                     <div className="flex items-center justify-start gap-1 ">
                                                         <Link
-                                                            href={"#"}
+                                                            href={route(
+                                                                "products.edit",
+                                                                product.id
+                                                            )}
                                                             className="py-1 px-2 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
                                                         >
                                                             Edit
@@ -74,7 +95,7 @@ const Team = ({ auth, team }: PageProps) => {
                                                             onSubmit={(e) =>
                                                                 handleSubmit(
                                                                     e,
-                                                                    member.id
+                                                                    product.id
                                                                 )
                                                             }
                                                         >
@@ -89,8 +110,8 @@ const Team = ({ auth, team }: PageProps) => {
                                     ) : (
                                         <NoDataInfo
                                             info="There are currently no
-                                                Team members to
-                                                display."
+                                                    Products to
+                                                    display."
                                         />
                                     )}
                                 </tbody>
@@ -98,7 +119,7 @@ const Team = ({ auth, team }: PageProps) => {
                         </div>
                     </div>
                 </div>
-                <Pagination links={team?.meta?.links ?? []} />
+                <Pagination links={products?.meta?.links ?? []} />
             </div>
         </AdminLayout>
     );

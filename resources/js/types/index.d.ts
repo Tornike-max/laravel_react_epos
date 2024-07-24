@@ -25,9 +25,17 @@ export type PageProps<
     auth: {
         user: User;
     };
-    products?: PaginatedTypes;
+    products?: {
+        data: Product[];
+        links: PaginationLinks;
+        meta: PaginationMeta;
+    };
     product?: Product;
-    pressRelease?: PressReleaseTypes;
+    pressRelease?: {
+        data: PressRelease[];
+        links: PaginationLinks;
+        meta: PaginationMeta;
+    };
     data?: AboutType | HistoryType;
     productsCount?: number;
     pressReleaseCount?: number;

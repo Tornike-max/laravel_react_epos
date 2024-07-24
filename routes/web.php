@@ -27,8 +27,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('admin/team', [AdminController::class, 'team'])->name('team');
-    Route::delete('admin/{:user}', [AdminController::class, 'deleteTeamMember'])->name('admin.destroy.member');
+    Route::get('admin/team', [AdminController::class, 'team'])->name('admin.team');
+    Route::delete('admin/{user}', [AdminController::class, 'deleteTeamMember'])->name('admin.destroy.member');
+
+    Route::get('admin/products', [AdminController::class, 'products'])->name('admin.products');
+
+    Route::get('admin/press-release', [AdminController::class, 'pressRelease'])->name('admin.press');
+    Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
 });
 
 
