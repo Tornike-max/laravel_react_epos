@@ -1,3 +1,4 @@
+import { useToggleSidebar } from "@/context/useToggleSidebar";
 import { User } from "@/types";
 import LogoutButton from "@/ui/LogoutButton";
 import { Link } from "@inertiajs/react";
@@ -13,15 +14,9 @@ import { IoBagOutline, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineWebAsset } from "react-icons/md";
 
-const ClosedSideBar = ({
-    user,
-    isOpen,
-    setIsOpen,
-}: {
-    user: User;
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}) => {
+const ClosedSideBar = ({ user }: { user: User }) => {
+    const { isOpen, toggleSidebar } = useToggleSidebar();
+
     return (
         <motion.aside
             className="sticky top-0 left-0 max-w-16  w-full h-screen bg-gray-900 text-white py-2"
@@ -129,7 +124,7 @@ const ClosedSideBar = ({
 
                     <Tooltip title="Open" placement="right">
                         <button
-                            onClick={() => setIsOpen(true)}
+                            onClick={() => toggleSidebar()}
                             className="w-full mt-4 py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
                         >
                             <HiMiniChevronDoubleRight className="w-6 h-6" />

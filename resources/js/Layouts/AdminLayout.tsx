@@ -3,6 +3,7 @@ import { User } from "@/types";
 
 import OpenSideBar from "./OpenSideBar";
 import ClosedSideBar from "./ClosedSideBar";
+import { useToggleSidebar } from "@/context/useToggleSidebar";
 
 const AdminLayout = ({
     user,
@@ -11,22 +12,15 @@ const AdminLayout = ({
     user: User;
     children: React.ReactNode;
 }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const { isOpen } = useToggleSidebar();
 
+    console.log(isOpen);
     return (
         <div className="flex min-h-screen bg-gray-100">
             {isOpen ? (
-                <OpenSideBar
-                    user={user}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                />
+                <OpenSideBar user={user} />
             ) : (
-                <ClosedSideBar
-                    user={user}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                />
+                <ClosedSideBar user={user} />
             )}
 
             <main className="flex-1 max-w-7xl mx-auto sm:px-6 lg:px-8">

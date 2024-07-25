@@ -10,16 +10,11 @@ import {
 import { IoBagOutline } from "react-icons/io5";
 import { MdOutlineSpaceDashboard, MdOutlineWebAsset } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useToggleSidebar } from "@/context/useToggleSidebar";
 
-const OpenSideBar = ({
-    user,
-    isOpen,
-    setIsOpen,
-}: {
-    user: User;
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}) => {
+const OpenSideBar = ({ user }: { user: User }) => {
+    const { isOpen, toggleSidebar } = useToggleSidebar();
+
     const menuItems = [
         {
             label: "Web Site",
@@ -51,7 +46,7 @@ const OpenSideBar = ({
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black opacity-50 z-10"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => toggleSidebar()}
                 />
             )}
 
@@ -99,7 +94,7 @@ const OpenSideBar = ({
                         </ul>
                     </nav>
                     <button
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => toggleSidebar()}
                         className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-gray-700"
                     >
                         <HiMiniChevronDoubleLeft className="w-6 h-6" />
