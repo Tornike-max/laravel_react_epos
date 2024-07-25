@@ -16,7 +16,13 @@ const ProductShow = ({ auth, product }: PageProps) => {
                         <div className="md:w-1/2">
                             {product?.image && (
                                 <img
-                                    src={generateImagePath(product?.image)}
+                                    src={
+                                        generateImagePath(
+                                            typeof product?.image === "string"
+                                                ? product.image
+                                                : null
+                                        ) || "path/to/default-image.jpg"
+                                    }
                                     alt={product.title}
                                     className="w-full h-auto rounded-lg shadow-md object-cover"
                                 />

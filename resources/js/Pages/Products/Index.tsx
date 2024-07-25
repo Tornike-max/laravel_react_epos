@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Product } from "@/types/types";
+import generateImagePath from "@/ui/generateImagePath";
 import Pagination from "@/ui/Pagination";
 import { Head, Link } from "@inertiajs/react";
 import { useInView, useAnimation, motion } from "framer-motion";
@@ -57,8 +58,16 @@ const Index = ({ auth, products }: PageProps) => {
                                     key={product.id}
                                     className="relative overflow-hidden group cursor-pointer"
                                 >
+                                    {}
                                     <img
-                                        src={"images/babylon.png"}
+                                        src={
+                                            generateImagePath(
+                                                typeof product?.image ===
+                                                    "string"
+                                                    ? product.image
+                                                    : null
+                                            ) || "path/to/default-image.jpg"
+                                        }
                                         alt="image"
                                     />
 

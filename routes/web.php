@@ -27,8 +27,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
+
     Route::get('admin/team', [AdminController::class, 'team'])->name('admin.team');
     Route::delete('admin/{user}', [AdminController::class, 'deleteTeamMember'])->name('admin.destroy.member');
+    Route::get('admin/team/create', [AdminController::class, 'createTeamMember'])->name('admin.team.create');
+    Route::post('admin/team/store', [AdminController::class, 'addTeamMember'])->name('admin.team.store');
+    Route::get('admin/team/edit/{user}', [AdminController::class, 'editTeamMember'])->name('admin.team.edit');
+    Route::patch('admin/team/update/{user}', [AdminController::class, 'updateTeamMember'])->name('admin.team.update');
 
     Route::get('admin/products', [AdminController::class, 'products'])->name('admin.products');
     Route::get('admin/products/{product}', [AdminController::class, 'showProduct'])->name('admin.product.show');

@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { formatDate } from "@/ui/formatDate";
+import generateImagePath from "@/ui/generateImagePath";
 import { Head, Link } from "@inertiajs/react";
 import { Divider } from "@mui/material";
 import { motion, useAnimation, useInView } from "framer-motion";
@@ -27,6 +28,11 @@ const Show = ({ auth, product }: PageProps) => {
         if (url === "") return;
         window.location.href = url;
     };
+
+    const imagePath =
+        generateImagePath(
+            typeof product?.image === "string" ? product.image : null
+        ) || "path/to/default-image.jpg";
 
     return (
         <AuthenticatedLayout
@@ -58,7 +64,7 @@ const Show = ({ auth, product }: PageProps) => {
                         <div className="flex justify-center items-center gap-4 p-4">
                             <img
                                 className="max-w-lg w-full rounded-md"
-                                src="/images/babylon.png"
+                                src={imagePath}
                                 alt=""
                             />
                             <div className="w-full flex justify-start items-start flex-col">

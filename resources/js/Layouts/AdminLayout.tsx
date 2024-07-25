@@ -14,7 +14,6 @@ const AdminLayout = ({
 }) => {
     const { isOpen } = useToggleSidebar();
 
-    console.log(isOpen);
     return (
         <div className="flex min-h-screen bg-gray-100">
             {isOpen ? (

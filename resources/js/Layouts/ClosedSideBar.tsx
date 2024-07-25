@@ -18,12 +18,7 @@ const ClosedSideBar = ({ user }: { user: User }) => {
     const { isOpen, toggleSidebar } = useToggleSidebar();
 
     return (
-        <motion.aside
-            className="sticky top-0 left-0 max-w-16  w-full h-screen bg-gray-900 text-white py-2"
-            initial={{ x: "100%" }}
-            animate={{ x: isOpen ? "-100%" : "0%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        >
+        <aside className="sticky top-0 left-0 max-w-16  w-full h-screen bg-gray-900 text-white py-2">
             <nav className="mt-4">
                 <ul className="flex flex-col gap-2">
                     <Tooltip
@@ -112,7 +107,11 @@ const ClosedSideBar = ({ user }: { user: User }) => {
                     <Tooltip title="Company" placement="right">
                         <Link
                             href={route("admin.company")}
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin.company")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
                         >
                             <IoBagOutline className="w-6 h-6" />
                         </Link>
@@ -132,7 +131,7 @@ const ClosedSideBar = ({ user }: { user: User }) => {
                     </Tooltip>
                 </ul>
             </nav>
-        </motion.aside>
+        </aside>
     );
 };
 

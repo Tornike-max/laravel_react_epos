@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AboutUpdateRequest;
+use App\Http\Requests\AddTeamMemberRequest;
 use App\Http\Requests\HistoryUpdateRequest;
+use App\Http\Requests\UpdateTeamMemberRequest;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\HistoryResource;
 use App\Http\Resources\PressReleaseResource;
@@ -54,6 +56,60 @@ class AdminController extends Controller
         return inertia('Admin/Team', [
             'team' => UserResource::collection($team)
         ]);
+    }
+
+    public function createTeamMember()
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        return inertia('Admin/CreateTeamMember');
+    }
+
+    public function addTeamMember(AddTeamMemberRequest $request)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+        $validatedData = $request->validated();
+        $validatedData['is_admin'] = 0;
+
+        User::create($validatedData);
+        return to_route('admin.team')->with('success', 'New team member added successfully');
+    }
+
+    public function editTeamMember(User $user)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        if ($user->is_admin && $user->id === auth()->id()) {
+            return abort(404);
+        }
+
+        return inertia('Admin/EditTeamMember', [
+            'member' => $user
+        ]);
+    }
+
+    public function updateTeamMember(UpdateTeamMemberRequest $request, User $user)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        if ($user->is_admin && $user->id === auth()->id()) {
+            return abort(404);
+        }
+
+        $validatedData = $request->validated();
+
+        $user->update($validatedData);
+
+
+        return to_route('admin.team')->with('success', 'Team member updated successfully');
     }
 
     public function deleteTeamMember(User $user)
