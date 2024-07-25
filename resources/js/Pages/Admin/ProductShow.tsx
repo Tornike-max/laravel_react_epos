@@ -1,9 +1,22 @@
+import React, { FormEvent } from "react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { PageProps } from "@/types";
 import generateImagePath from "@/ui/generateImagePath";
-import { Head } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const ProductShow = ({ auth, product }: PageProps) => {
+    const { delete: destroy } = useForm();
+
+    const handleSubmit = (
+        e: FormEvent<HTMLFormElement>,
+        productId: number | undefined
+    ) => {
+        e.preventDefault();
+        destroy(route("products.destroy", { product: productId }));
+    };
+
     return (
         <AdminLayout user={auth.user}>
             <Head title={`Product - ${product?.title}`} />
@@ -59,18 +72,27 @@ const ProductShow = ({ auth, product }: PageProps) => {
                                     {product?.for}
                                 </span>
                             </div>
-                            {product?.gameUrl && (
-                                <div className="mt-6">
-                                    <a
-                                        href={product?.gameUrl}
-                                        className="text-blue-600 hover:text-blue-800 underline font-semibold"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                            <Stack direction="row" spacing={2} className="mt-6">
+                                <Link
+                                    href={route("products.edit", product?.id)}
+                                    className="py-[5px] px-[14px] rounded-[4px] bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
+                                >
+                                    Edit
+                                </Link>
+                                <form
+                                    onSubmit={(e) =>
+                                        handleSubmit(e, product?.id)
+                                    }
+                                >
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        color="error"
                                     >
-                                        Play Game
-                                    </a>
-                                </div>
-                            )}
+                                        Delete
+                                    </Button>
+                                </form>
+                            </Stack>
                         </div>
                     </div>
                 </div>

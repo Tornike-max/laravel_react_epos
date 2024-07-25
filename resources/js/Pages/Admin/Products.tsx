@@ -10,9 +10,9 @@ import { Head, Link, useForm } from "@inertiajs/react";
 const Products = ({ auth, products }: PageProps) => {
     const { delete: destroy, get } = useForm();
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>, memberId: number) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>, productId: number) => {
         e.preventDefault();
-        destroy(route("admin.destroy.member", { user: memberId }));
+        destroy(route("products.destroy", { product: productId }));
     };
 
     const handleNavigate = (id: number) => {

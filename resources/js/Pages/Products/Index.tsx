@@ -58,7 +58,6 @@ const Index = ({ auth, products }: PageProps) => {
                                     key={product.id}
                                     className="relative overflow-hidden group cursor-pointer"
                                 >
-                                    {}
                                     <img
                                         src={
                                             generateImagePath(

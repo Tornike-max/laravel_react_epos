@@ -18,7 +18,10 @@ export default function Index({
 }: PageProps) {
     const { delete: destroy, get } = useForm();
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>, productId: number) => {
+    const handleSubmit = (
+        e: FormEvent<HTMLFormElement>,
+        productId: number | undefined
+    ) => {
         e.preventDefault();
         destroy(route("products.destroy", { product: productId }));
     };
@@ -123,11 +126,15 @@ export default function Index({
                                             >
                                                 <td className="py-2 px-4 border-b">
                                                     <img
-                                                        src={generateImagePath(
-                                                            String(
-                                                                product.image
-                                                            )
-                                                        )}
+                                                        src={
+                                                            generateImagePath(
+                                                                typeof product?.image ===
+                                                                    "string"
+                                                                    ? product.image
+                                                                    : null
+                                                            ) ||
+                                                            "path/to/default-image.jpg"
+                                                        }
                                                         className="w-12"
                                                     />
                                                 </td>
