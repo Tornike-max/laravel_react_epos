@@ -2,9 +2,9 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import UpdateAbout from "./partials/UpdateAbout";
+import UpdateHistory from "./partials/UpdateHistory";
 
 const Company = ({ auth, about, history }: PageProps) => {
-    console.log(about, history);
     return (
         <AdminLayout user={auth.user}>
             <Head title="Admin-Edit" />
@@ -15,9 +15,9 @@ const Company = ({ auth, about, history }: PageProps) => {
                         <UpdateAbout about={about} />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg"></div>
-
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg"></div>
+                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <UpdateHistory history={history} />
+                    </div>
                 </div>
             </div>
         </AdminLayout>

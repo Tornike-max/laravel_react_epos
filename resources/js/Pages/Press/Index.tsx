@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { PressRelease } from "@/types/types";
 import { formatDate } from "@/ui/formatDate";
+import NoDataInfo from "@/ui/NoDataInfo";
 import { Head, Link } from "@inertiajs/react";
 import { useInView, useAnimation, motion } from "framer-motion";
 import { useRef, useEffect } from "react";
@@ -45,8 +46,8 @@ const Index = ({ auth, pressRelease }: PageProps) => {
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        {pressRelease &&
-                            pressRelease.data.map((press) => (
+                        {pressRelease?.data.length !== 0 ? (
+                            pressRelease?.data.map((press) => (
                                 <div
                                     className="flex flex-col justify-center items-start gap-4 bg-white hover:bg-slate-50 duration-300 transition-all overflow-hidden shadow-sm hover:shadow-lg sm:rounded-lg p-4 my-2"
                                     key={press.id}
@@ -80,7 +81,32 @@ const Index = ({ auth, pressRelease }: PageProps) => {
                                     </Link>
                                     <div className="w-full px-4 border-[2px] mt-4"></div>
                                 </div>
-                            ))}
+                            ))
+                        ) : (
+                            <motion.div
+                                ref={ref}
+                                variants={{
+                                    hidden: { opacity: 0, y: 75 },
+                                    visible: { opacity: 1, y: 0 },
+                                }}
+                                initial="hidden"
+                                animate={mainControls}
+                                transition={{
+                                    duration: 0.3,
+                                    delay: 0.2,
+                                }}
+                                className="w-full flex justify-center items-center py-4"
+                            >
+                                <div className="p-6 bg-gray-200 border border-gray-200 rounded-lg shadow-md">
+                                    <p className="text-lg font-semibold text-center text-gray-800">
+                                        No Data Available
+                                    </p>
+                                    <p className="text-sm text-red-500">
+                                        Currently, there are no press releases.
+                                    </p>
+                                </div>
+                            </motion.div>
+                        )}
                     </div>
                 </div>
             </motion.div>

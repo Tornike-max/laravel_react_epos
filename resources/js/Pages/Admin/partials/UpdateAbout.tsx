@@ -1,6 +1,7 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import TextArea from "@/Components/TextArea";
 import TextInput from "@/Components/TextInput";
 import { PageProps } from "@/types";
 import { AboutType } from "@/types/types";
@@ -12,15 +13,11 @@ const UpdateAbout = ({ about }: { about: AboutType | undefined }) => {
     const user = usePage<PageProps>().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            name: user.name,
-            email: user.email,
-        });
+        useForm<AboutType>();
 
     const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
-        patch(route("profile.update"));
+        patch(route("admin.about.update", { about: about?.id }));
     };
 
     return (
@@ -31,41 +28,108 @@ const UpdateAbout = ({ about }: { about: AboutType | undefined }) => {
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Update your company information.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Company Name" />
 
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData("name", e.target.value)}
+                        defaultValue={about?.companyName}
+                        onChange={(e) => setData("companyName", e.target.value)}
                         required
                         isFocused
                         autoComplete="name"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.companyName} />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Address" />
 
-                    <TextInput
-                        id="email"
-                        type="email"
+                    <TextArea
+                        id="address"
                         className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData("email", e.target.value)}
+                        defaultValue={about?.Address}
+                        onChange={(e) => setData("Address", e.target.value)}
                         required
-                        autoComplete="username"
+                        autoComplete="Address"
                     />
 
-                    <InputError className="mt-2" message={errors.email} />
+                    <InputError className="mt-2" message={errors.Address} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="email" value="Business Description" />
+
+                    <TextArea
+                        id="businessDesc"
+                        className="mt-1 block w-full"
+                        defaultValue={about?.businessDesc}
+                        onChange={(e) =>
+                            setData("businessDesc", e.target.value)
+                        }
+                        required
+                        autoComplete="businessDesc"
+                    />
+
+                    <InputError
+                        className="mt-2"
+                        message={errors.businessDesc}
+                    />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="email" value="DUNS Number" />
+
+                    <TextInput
+                        type="text"
+                        id="DUNS"
+                        className="mt-1 block w-full"
+                        defaultValue={about?.DUNS}
+                        onChange={(e) => setData("DUNS", e.target.value)}
+                        required
+                        autoComplete="DUNS"
+                    />
+
+                    <InputError className="mt-2" message={errors.DUNS} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="email" value="TIN" />
+
+                    <TextInput
+                        type="text"
+                        id="TIN"
+                        className="mt-1 block w-full"
+                        defaultValue={about?.TIN}
+                        onChange={(e) => setData("TIN", e.target.value)}
+                        required
+                        autoComplete="TIN"
+                    />
+
+                    <InputError className="mt-2" message={errors.TIN} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="email" value="Founded at" />
+
+                    <TextInput
+                        type="date"
+                        id="founded_at"
+                        className="mt-1 block w-full"
+                        defaultValue={about?.founded_at}
+                        onChange={(e) => setData("founded_at", e.target.value)}
+                        required
+                        autoComplete="founded_at"
+                    />
+
+                    <InputError className="mt-2" message={errors.founded_at} />
                 </div>
 
                 <div className="flex items-center gap-4">

@@ -23,10 +23,14 @@ const LogoutButton = ({ type }: { type: "sm" | "lg" }) => {
                     />
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-700 rounded pr-4"
+                        className={`w-full py-3 px-6 flex items-center justify-between rounded-lg transition-colors duration-300 ${
+                            route().current("logout")
+                                ? "bg-blue-700 text-white"
+                                : "hover:bg-blue-500 hover:text-white"
+                        }`}
                     >
                         <span>Logout</span>
-                        <HiOutlineArrowLeftOnRectangle className="w-6 h-6" />
+                        <HiOutlineArrowLeftOnRectangle className="w-6 h-6 hidden lg:block" />
                     </button>
                 </form>
             ) : (

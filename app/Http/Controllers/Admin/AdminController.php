@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AboutUpdateRequest;
+use App\Http\Requests\HistoryUpdateRequest;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\HistoryResource;
 use App\Http\Resources\PressReleaseResource;
@@ -69,6 +71,9 @@ class AdminController extends Controller
 
     public function products()
     {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
         $products = Product::query()->with('user')->latest()->paginate(9);
 
         return inertia('Admin/Products', [
@@ -76,8 +81,21 @@ class AdminController extends Controller
         ]);
     }
 
+    public function showProduct(Product $product)
+    {
+        if (!isset($product)) {
+            return;
+        }
+        return inertia('Admin/ProductShow', [
+            'product' => new ProductResource($product)
+        ]);
+    }
+
     public function pressRelease()
     {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
         $press = PressRelease::with('product')->latest()->paginate(10);
 
         return inertia('Admin/Press', [
@@ -87,13 +105,17 @@ class AdminController extends Controller
 
     public function pressReleaseDelete(PressRelease $press)
     {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
         dd($press);
     }
 
     public function company()
     {
-
-        // dd('help');
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
         $aboutInfo = About::query()->first();
         $history = History::query()->first();
 
@@ -101,5 +123,34 @@ class AdminController extends Controller
             'about' => new AboutResource($aboutInfo),
             'history' => new HistoryResource($history)
         ]);
+    }
+
+    public function updateAbout(AboutUpdateRequest $request, About $about)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+        $validatedData = $request->validated();
+        if (count($validatedData) === 0) {
+            return;
+        }
+
+        $about->update($validatedData);
+        return to_route('admin.company')->with('success', 'About Data Updated Successfully');
+    }
+
+    public function updateHistory(HistoryUpdateRequest $request, History $history)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        $validatedData = $request->validated();
+        if (count($validatedData) === 0) {
+            return;
+        }
+
+        $history->update($validatedData);
+        return to_route('admin.company')->with('success', 'About Data Updated Successfully');
     }
 }

@@ -27,6 +27,10 @@ export default function Index({
         get(route("products.create"));
     };
 
+    const handleNavigate = (id: number) => {
+        get(route("admin.product.show", { product: id }));
+    };
+
     return (
         <AdminLayout user={auth.user}>
             <Head title="Admin" />
@@ -113,6 +117,9 @@ export default function Index({
                                             <tr
                                                 key={product.id}
                                                 className="hover:bg-gray-100 transition-colors"
+                                                onClick={() =>
+                                                    handleNavigate(product.id)
+                                                }
                                             >
                                                 <td className="py-2 px-4 border-b">
                                                     <img

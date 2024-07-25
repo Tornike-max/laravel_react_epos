@@ -31,11 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('admin/{user}', [AdminController::class, 'deleteTeamMember'])->name('admin.destroy.member');
 
     Route::get('admin/products', [AdminController::class, 'products'])->name('admin.products');
+    Route::get('admin/products/{product}', [AdminController::class, 'showProduct'])->name('admin.product.show');
 
     Route::get('admin/press-release', [AdminController::class, 'pressRelease'])->name('admin.press');
     Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
 
     Route::get('admin/company', [AdminController::class, 'company'])->name('admin.company');
+    Route::patch('admin/company/about/{about}', [AdminController::class, 'updateAbout'])->name('admin.about.update');
+    Route::patch('admin/company/history/{history}', [AdminController::class, 'updateHistory'])->name('admin.history.update');
 });
 
 

@@ -2,10 +2,10 @@ import { User } from "@/types";
 import LogoutButton from "@/ui/LogoutButton";
 import { Link } from "@inertiajs/react";
 import { Tooltip } from "@mui/material";
+import { motion } from "framer-motion";
 import { AiOutlineTeam, AiOutlineProduct } from "react-icons/ai";
 import {
     HiOutlineUser,
-    HiOutlineArrowLeftOnRectangle,
     HiMiniChevronDoubleRight,
     HiOutlineNewspaper,
 } from "react-icons/hi2";
@@ -23,24 +23,34 @@ const ClosedSideBar = ({
     setIsOpen: (isOpen: boolean) => void;
 }) => {
     return (
-        <aside className="w-16 bg-gray-900 text-white py-4">
-            <Tooltip
-                title={user && user.is_admin === 1 && `${user.name}'s Profile`}
-                placement="right"
-            >
-                <Link
-                    href={route("profile.edit")}
-                    className={`w-full py-2 px-4 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                        route().current("profile.edit")
-                            ? "bg-blue-700 text-white"
-                            : "hover:bg-blue-500 hover:text-white"
-                    }`}
-                >
-                    <HiOutlineUser className="w-6 h-6" />
-                </Link>
-            </Tooltip>
-            <nav className="mt-5">
+        <motion.aside
+            className="sticky top-0 left-0 max-w-16  w-full h-screen bg-gray-900 text-white py-2"
+            initial={{ x: "100%" }}
+            animate={{ x: isOpen ? "-100%" : "0%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+            <nav className="mt-4">
                 <ul className="flex flex-col gap-2">
+                    <Tooltip
+                        title={
+                            user &&
+                            user.is_admin === 1 &&
+                            `${user.name}'s Profile`
+                        }
+                        placement="right"
+                    >
+                        <Link
+                            href={route("profile.edit")}
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("profile.edit")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
+                        >
+                            <HiOutlineUser className="w-6 h-6" />
+                        </Link>
+                    </Tooltip>
+
                     <Tooltip title="Go To Website" placement="right">
                         <Link
                             href={route("products.index")}
@@ -53,6 +63,7 @@ const ClosedSideBar = ({
                             <MdOutlineWebAsset className="w-6 h-6" />
                         </Link>
                     </Tooltip>
+
                     <Tooltip title="Dashboard" placement="right">
                         <Link
                             href={route("admin")}
@@ -111,26 +122,11 @@ const ClosedSideBar = ({
                             <IoBagOutline className="w-6 h-6" />
                         </Link>
                     </Tooltip>
-                    <Tooltip title="Settings" placement="right">
-                        <Link
-                            href="/admin/setting"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
-                        >
-                            <IoSettingsOutline className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip title="Profile" placement="right">
-                        <Link
-                            href="/admin/profile"
-                            className="w-full py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
-                        >
-                            <HiOutlineUser className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
 
                     <Tooltip title="Logout" placement="right">
                         <LogoutButton type="sm" />
                     </Tooltip>
+
                     <Tooltip title="Open" placement="right">
                         <button
                             onClick={() => setIsOpen(true)}
@@ -141,7 +137,7 @@ const ClosedSideBar = ({
                     </Tooltip>
                 </ul>
             </nav>
-        </aside>
+        </motion.aside>
     );
 };
 
