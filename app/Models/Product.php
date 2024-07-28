@@ -15,7 +15,8 @@ class Product extends Model
         'description',
         'image',
         'gameUrl',
-        'user_id'
+        'user_id',
+        'id'
     ];
 
     use HasFactory;

@@ -21,6 +21,7 @@ export interface PressRelease {
     date: string;
     info: string;
     product: Product;
+    product_id?: string;
     created_at: string;
     updated_at: string;
 }

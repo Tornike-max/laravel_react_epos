@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/products/{product}', [AdminController::class, 'showProduct'])->name('admin.product.show');
 
     Route::get('admin/press-release', [AdminController::class, 'pressRelease'])->name('admin.press');
+    Route::get('admin/press-release/create', [AdminController::class, 'createPressRelease'])->name('admin.press.create');
+    Route::post('admin/press-release/store', [AdminController::class, 'storePressRelease'])->name('admin.press.store');
     Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
 
     Route::get('admin/company', [AdminController::class, 'company'])->name('admin.company');

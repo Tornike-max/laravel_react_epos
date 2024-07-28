@@ -92,13 +92,15 @@ const Show = ({ auth, product }: PageProps) => {
                                     <span>{product?.for}</span>
                                 </p>
                                 <div className="w-full py-2">
-                                    <button
-                                        onClick={() => {}}
+                                    <a
+                                        href={
+                                            "https://www.youtube.com/watch?v=1NjOWtQ7S2o&list=PL3VM-unCzF8hy47mt9-chowaHNjfkuEVz"
+                                        }
                                         className=" px-3 py-2 md:px-4 md:py-3 text-lg flex items-center gap-2 font-medium bg-blue-500 hover:bg-blue-600 text-white w-fit  transform duration-300 transition-all rounded-lg"
                                     >
                                         <HiOutlineVideoCamera />
                                         <span>Trailer</span>
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div className="w-full flex items-center justify-center flex-col pt-4 gap-2">

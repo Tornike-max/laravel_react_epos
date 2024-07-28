@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AboutUpdateRequest;
 use App\Http\Requests\AddTeamMemberRequest;
+use App\Http\Requests\CreatePressRequets;
 use App\Http\Requests\HistoryUpdateRequest;
 use App\Http\Requests\UpdateTeamMemberRequest;
 use App\Http\Resources\AboutResource;
@@ -157,6 +158,34 @@ class AdminController extends Controller
         return inertia('Admin/Press', [
             'pressRelease' => PressReleaseResource::collection($press)
         ]);
+    }
+
+    public function createPressRelease()
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+        $products = Product::query()->with('user')->latest()->get();
+
+        return inertia('Admin/CreatePressRelease', [
+            'products' =>  ProductResource::collection($products)
+        ]);
+    }
+
+    public function storePressRelease(CreatePressRequets $request)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+        $validatedData = $request->validated();
+
+
+        if (!isset($validatedData)) {
+            return to_route('admin.press')->with('error', 'Error while creating release');
+        }
+
+        PressRelease::create($validatedData);
+        return to_route('admin.press')->with('success', 'Press release created successfully');
     }
 
     public function pressReleaseDelete(PressRelease $press)
