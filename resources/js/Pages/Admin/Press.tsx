@@ -16,6 +16,7 @@ const Press = ({ auth, pressRelease }: PageProps) => {
     const handleNavigate = () => {
         get(route("admin.press.create"));
     };
+
     return (
         <AdminLayout user={auth.user}>
             <Head title="Press-Release" />
@@ -76,7 +77,12 @@ const Press = ({ auth, pressRelease }: PageProps) => {
                                                 <td className="py-2 px-4 border-b">
                                                     <div className="flex flex-col sm:flex-row items-center justify-start gap-1 ">
                                                         <Link
-                                                            href={"#"}
+                                                            href={route(
+                                                                "admin.press.edit",
+                                                                {
+                                                                    press: press.id,
+                                                                }
+                                                            )}
                                                             className="w-full text-center py-1 px-2 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
                                                         >
                                                             Edit

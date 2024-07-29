@@ -21,8 +21,8 @@ const UpdateAbout = ({ about }: { about: AboutType | undefined }) => {
     };
 
     return (
-        <section className="max-w-xl">
-            <header>
+        <section className="max-w-xl w-full">
+            <header className="w-full flex justify-center items-center flex-col">
                 <h2 className="text-lg font-medium text-gray-900">
                     Company Information
                 </h2>
@@ -133,7 +133,9 @@ const UpdateAbout = ({ about }: { about: AboutType | undefined }) => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>
+                        Save Changes
+                    </PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}

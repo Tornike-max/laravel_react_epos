@@ -18,7 +18,7 @@ const ClosedSideBar = ({ user }: { user: User }) => {
     const { isOpen, toggleSidebar } = useToggleSidebar();
 
     return (
-        <aside className="sticky top-0 left-0 max-w-16  w-full h-screen bg-gray-900 text-white py-2">
+        <aside className="sticky top-0 left-0 max-w-16 w-full h-screen bg-gray-900 text-white py-2">
             <nav className="mt-4">
                 <ul className="flex flex-col gap-2">
                     <Tooltip

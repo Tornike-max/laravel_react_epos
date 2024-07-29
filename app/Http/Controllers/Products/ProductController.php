@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function create()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         return inertia('Products/Create', [
@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         $validatedData = $request->validated();
@@ -84,7 +84,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         return inertia('Products/Edit', [
@@ -99,7 +99,7 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, Product $product)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $validatedData = $request->validated();
 
@@ -124,11 +124,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         if (empty($product)) {
-            abort(404);
+            abort(403);
         }
 
         $product->delete();

@@ -4,32 +4,31 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextArea from "@/Components/TextArea";
 import TextInput from "@/Components/TextInput";
 import { PageProps } from "@/types";
-import { AboutType, HistoryType } from "@/types/types";
+import { PressRelease, ProductType } from "@/types/types";
 import { Transition } from "@headlessui/react";
-import { useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import { useForm } from "@inertiajs/react";
+import React, { FormEventHandler } from "react";
 
-const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
-    const user = usePage<PageProps>().props.auth.user;
-
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm<HistoryType>();
+const UpdatePress = ({ auth, pressRelease, products }: PageProps) => {
+    const { setData, patch, errors, processing, recentlySuccessful } =
+        useForm<PressRelease>();
 
     const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
-        patch(route("admin.history.update", { history: history?.id }));
+        patch(
+            route("admin.press.update", { press: pressRelease?.data[0]?.id })
+        );
     };
 
     return (
         <section className="max-w-xl w-full">
-            <header className="w-full flex justify-center items-center flex-col">
+            <header className="w-full flex items-center justify-center flex-col">
                 <h2 className="text-lg font-medium text-gray-900">
-                    Company History
+                    Update Form
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your company history.
+                    Update Press Release.
                 </p>
             </header>
 
@@ -38,32 +37,50 @@ const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
                     <InputLabel htmlFor="name" value="Date" />
 
                     <TextInput
+                        id="press-date"
                         type="date"
-                        id="date"
                         className="mt-1 block w-full"
-                        defaultValue={history?.date}
+                        defaultValue={pressRelease?.data[0]?.date}
                         onChange={(e) => setData("date", e.target.value)}
                         required
                         isFocused
-                        autoComplete="date"
+                        autoComplete="name"
                     />
 
                     <InputError className="mt-2" message={errors.date} />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="description" />
+                    <InputLabel htmlFor="name" value="Product id" />
+
+                    <select
+                        className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full`}
+                        defaultValue={pressRelease?.data[0]?.product?.id}
+                        onChange={(e) => setData("product_id", e.target.value)}
+                    >
+                        {products?.data?.map((product) => (
+                            <option key={product.id} value={product.id}>
+                                {product.title}
+                            </option>
+                        ))}
+                    </select>
+
+                    <InputError className="mt-2" message={errors.date} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="email" value="Info" />
 
                     <TextArea
-                        id="h-description"
+                        id="press-info"
                         className="mt-1 block w-full"
-                        defaultValue={history?.description}
-                        onChange={(e) => setData("description", e.target.value)}
+                        defaultValue={pressRelease?.data[0]?.info}
+                        onChange={(e) => setData("info", e.target.value)}
                         required
-                        autoComplete="description"
+                        autoComplete="email"
                     />
 
-                    <InputError className="mt-2" message={errors.description} />
+                    <InputError className="mt-2" message={errors.info} />
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -86,4 +103,4 @@ const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
     );
 };
 
-export default UpdateHistory;
+export default UpdatePress;

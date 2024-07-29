@@ -64,11 +64,6 @@ const Products = ({ auth, products }: PageProps) => {
                                                     (product) => (
                                                         <tr
                                                             key={product.id}
-                                                            onClick={() =>
-                                                                handleNavigate(
-                                                                    product.id
-                                                                )
-                                                            }
                                                             className="hover:bg-gray-100 transition-colors"
                                                         >
                                                             <td className="py-2 px-4 border-b">
@@ -113,7 +108,7 @@ const Products = ({ auth, products }: PageProps) => {
                                                                             "products.edit",
                                                                             product.id
                                                                         )}
-                                                                        className="py-1 px-2 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
+                                                                        className="z-10 py-1 px-2 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
                                                                     >
                                                                         Edit
                                                                     </Link>

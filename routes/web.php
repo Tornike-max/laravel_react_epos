@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/press-release', [AdminController::class, 'pressRelease'])->name('admin.press');
     Route::get('admin/press-release/create', [AdminController::class, 'createPressRelease'])->name('admin.press.create');
     Route::post('admin/press-release/store', [AdminController::class, 'storePressRelease'])->name('admin.press.store');
+    Route::get('admin/press-release/{press}', [AdminController::class, 'editPressRelease'])->name('admin.press.edit');
+    Route::patch('admin/press-release/update/{press}', [AdminController::class, 'updatePressRelease'])->name('admin.press.update');
     Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
 
     Route::get('admin/company', [AdminController::class, 'company'])->name('admin.company');

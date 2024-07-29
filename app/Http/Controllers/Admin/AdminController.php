@@ -7,6 +7,7 @@ use App\Http\Requests\AboutUpdateRequest;
 use App\Http\Requests\AddTeamMemberRequest;
 use App\Http\Requests\CreatePressRequets;
 use App\Http\Requests\HistoryUpdateRequest;
+use App\Http\Requests\UpdatePressRequest;
 use App\Http\Requests\UpdateTeamMemberRequest;
 use App\Http\Resources\AboutResource;
 use App\Http\Resources\HistoryResource;
@@ -18,7 +19,6 @@ use App\Models\History;
 use App\Models\PressRelease;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         $products = Product::query()->with('user')->latest()->paginate(9);;
@@ -46,10 +46,12 @@ class AdminController extends Controller
         ]);
     }
 
+
+    //Team methods
     public function team()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         $team = User::query()->orderBy('is_admin', 'desc')->paginate(10);
@@ -62,7 +64,7 @@ class AdminController extends Controller
     public function createTeamMember()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         return inertia('Admin/CreateTeamMember');
@@ -71,7 +73,7 @@ class AdminController extends Controller
     public function addTeamMember(AddTeamMemberRequest $request)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $validatedData = $request->validated();
         $validatedData['is_admin'] = 0;
@@ -83,11 +85,11 @@ class AdminController extends Controller
     public function editTeamMember(User $user)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         if ($user->is_admin && $user->id === auth()->id()) {
-            return abort(404);
+            return abort(401);
         }
 
         return inertia('Admin/EditTeamMember', [
@@ -98,11 +100,11 @@ class AdminController extends Controller
     public function updateTeamMember(UpdateTeamMemberRequest $request, User $user)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         if ($user->is_admin && $user->id === auth()->id()) {
-            return abort(404);
+            return abort(401);
         }
 
         $validatedData = $request->validated();
@@ -116,20 +118,22 @@ class AdminController extends Controller
     public function deleteTeamMember(User $user)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         if ($user->is_admin && $user->id === auth()->id()) {
-            abort(404);
+            abort(401);
         };
 
         $user->delete();
         return to_route('admin.team')->with('success', 'Team member deleted successfully');
     }
 
+
+    //Product methods
     public function products()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $products = Product::query()->with('user')->latest()->paginate(9);
 
@@ -148,13 +152,15 @@ class AdminController extends Controller
         ]);
     }
 
+
+    //Press Release methods
     public function pressRelease()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $press = PressRelease::with('product')->latest()->paginate(10);
-
+        // dd($press);
         return inertia('Admin/Press', [
             'pressRelease' => PressReleaseResource::collection($press)
         ]);
@@ -163,7 +169,7 @@ class AdminController extends Controller
     public function createPressRelease()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $products = Product::query()->with('user')->latest()->get();
 
@@ -175,7 +181,7 @@ class AdminController extends Controller
     public function storePressRelease(CreatePressRequets $request)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $validatedData = $request->validated();
 
@@ -188,18 +194,61 @@ class AdminController extends Controller
         return to_route('admin.press')->with('success', 'Press release created successfully');
     }
 
+    public function editPressRelease(PressRelease $press)
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+        $products = Product::query()->with('user')->latest()->get();
+
+
+        if (!isset($press) || !isset($products)) {
+            return to_route('admin.press')->with('message', 'Release with this id not found');
+        }
+        $pressObject = PressRelease::with('product')->where('product_id', $press['product_id'])->get();
+
+        return inertia('Admin/EditPressRelease', [
+            'pressRelease' =>  PressReleaseResource::collection($pressObject),
+            'products' => ProductResource::collection($products),
+        ]);
+    }
+
+    public function updatePressRelease(UpdatePressRequest $request, PressRelease $press)
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        $validatedData = $request->validated();
+
+        if (count($validatedData) === 0) {
+            return;
+        }
+
+        $press->update($validatedData);
+
+        return to_route('admin.press')->with('success', 'Release updated successfully');
+    }
+
     public function pressReleaseDelete(PressRelease $press)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
-        dd($press);
+
+        if (empty($press)) {
+            return;
+        }
+
+        $press->delete();
     }
 
+
+    //Company methods
     public function company()
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $aboutInfo = About::query()->first();
         $history = History::query()->first();
@@ -213,7 +262,7 @@ class AdminController extends Controller
     public function updateAbout(AboutUpdateRequest $request, About $about)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
         $validatedData = $request->validated();
         if (count($validatedData) === 0) {
@@ -227,7 +276,7 @@ class AdminController extends Controller
     public function updateHistory(HistoryUpdateRequest $request, History $history)
     {
         if (!Gate::allows('admin')) {
-            abort(403);
+            abort(401);
         }
 
         $validatedData = $request->validated();
