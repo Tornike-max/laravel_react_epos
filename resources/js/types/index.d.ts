@@ -38,6 +38,11 @@ export type PageProps<
         links: PaginationLinks;
         meta: PaginationMeta;
     };
+    histories?: {
+        data: HistoryType[];
+        links: PaginationLinks;
+        meta: PaginationMeta;
+    };
     press?: PressRelease;
     data?: AboutType | HistoryType;
     about?: AboutType;

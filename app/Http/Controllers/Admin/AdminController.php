@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AboutUpdateRequest;
 use App\Http\Requests\AddTeamMemberRequest;
+use App\Http\Requests\CreateHistoryRequest;
 use App\Http\Requests\CreatePressRequets;
 use App\Http\Requests\HistoryUpdateRequest;
 use App\Http\Requests\UpdatePressRequest;
@@ -250,27 +251,21 @@ class AdminController extends Controller
         if (!Gate::allows('admin')) {
             abort(401);
         }
-        $aboutInfo = About::query()->first();
-        $history = History::query()->first();
-
+        $history = History::query()->latest()->paginate(10);
         return inertia('Admin/Company', [
-            'about' => new AboutResource($aboutInfo),
-            'history' => new HistoryResource($history)
+            'histories' => HistoryResource::collection($history)
         ]);
     }
 
-    public function updateAbout(AboutUpdateRequest $request, About $about)
+    public function editHistory(History $history)
     {
         if (!Gate::allows('admin')) {
             abort(401);
         }
-        $validatedData = $request->validated();
-        if (count($validatedData) === 0) {
-            return;
-        }
 
-        $about->update($validatedData);
-        return to_route('admin.company')->with('success', 'About Data Updated Successfully');
+        return inertia('Admin/EditHistory', [
+            'history' => new HistoryResource($history)
+        ]);
     }
 
     public function updateHistory(HistoryUpdateRequest $request, History $history)
@@ -286,5 +281,69 @@ class AdminController extends Controller
 
         $history->update($validatedData);
         return to_route('admin.company')->with('success', 'About Data Updated Successfully');
+    }
+
+    public function storeHistory(CreateHistoryRequest $request)
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        $validatedData = $request->validated();
+
+
+        if (count($validatedData) === 0) {
+            return;
+        }
+
+        History::create($validatedData);
+
+        return to_route('admin.company')->with('success', 'History created successfully');
+    }
+
+    public function deleteHistory(History $history)
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (empty($history)) {
+            return;
+        }
+
+        $history->delete();
+        return to_route('admin.company')->with('success', 'History deleted successfully');
+    }
+
+
+    //settings #about #access
+
+    public function settings()
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        $about = About::query()->first();
+
+
+        return inertia('Admin/Settings', [
+            'about' => new AboutResource($about),
+        ]);
+    }
+
+    public function updateAbout(AboutUpdateRequest $request, About $about)
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+        $validatedData = $request->validated();
+
+        if (count($validatedData) === 0) {
+            return;
+        }
+
+        $about->update($validatedData);
+        return to_route('admin.press')->with('success', 'About Data Updated Successfully');
     }
 }

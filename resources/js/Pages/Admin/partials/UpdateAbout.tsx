@@ -17,14 +17,14 @@ const UpdateAbout = ({ about }: { about: AboutType | undefined }) => {
 
     const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        patch(route("admin.about.update", { about: about?.id }));
+        patch(route("admin.settings.update", { about: about?.id }));
     };
 
     return (
         <section className="max-w-xl w-full">
             <header className="w-full flex justify-center items-center flex-col">
                 <h2 className="text-lg font-medium text-gray-900">
-                    Company Information
+                    Update Form
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">

@@ -46,8 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('admin/press-release/{press}', [AdminController::class, 'pressReleaseDelete'])->name('admin.press.delete');
 
     Route::get('admin/company', [AdminController::class, 'company'])->name('admin.company');
-    Route::patch('admin/company/about/{about}', [AdminController::class, 'updateAbout'])->name('admin.about.update');
+    Route::get('admin/company/history/{history}', [AdminController::class, 'editHistory'])->name('admin.history.edit');
     Route::patch('admin/company/history/{history}', [AdminController::class, 'updateHistory'])->name('admin.history.update');
+    Route::delete('admin/company/history/{history}', [AdminController::class, 'deleteHistory'])->name('admin.history.delete');
+    Route::post('admin/company/history/store', [AdminController::class, 'storeHistory'])->name('admin.history.store');
+
+    Route::get('admin/settings', [AdminController::class, 'settings'])->name('admin.settings.index');
+    Route::patch('admin/settings/about/{about}', [AdminController::class, 'updateAbout'])->name('admin.settings.update');
 });
 
 
@@ -64,8 +69,6 @@ Route::get('company', [CompanyController::class, 'index'])->name('company.index'
 Route::get('history', [HistoryController::class, 'index'])->name('history.index');
 Route::get('support', [SupportController::class, 'index'])->name('support.index');
 Route::post('support', [SupportController::class, 'store'])->name('support.store');
-
-
 
 
 

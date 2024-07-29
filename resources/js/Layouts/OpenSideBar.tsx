@@ -3,8 +3,8 @@ import LogoutButton from "@/ui/LogoutButton";
 import { Link } from "@inertiajs/react";
 import { AiOutlineTeam, AiOutlineProduct } from "react-icons/ai";
 import {
-    HiOutlineUser,
     HiMiniChevronDoubleLeft,
+    HiOutlineCog6Tooth,
     HiOutlineNewspaper,
 } from "react-icons/hi2";
 import { IoBagOutline } from "react-icons/io5";
@@ -38,6 +38,12 @@ const OpenSideBar = ({ user }: { user: User }) => {
             icon: HiOutlineNewspaper,
         },
         { label: "Company", href: route("admin.company"), icon: IoBagOutline },
+
+        {
+            label: "Settings",
+            href: route("admin.settings.index"),
+            icon: HiOutlineCog6Tooth,
+        },
     ];
 
     return (

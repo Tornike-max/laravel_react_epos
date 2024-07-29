@@ -9,6 +9,7 @@ import {
     HiOutlineUser,
     HiMiniChevronDoubleRight,
     HiOutlineNewspaper,
+    HiOutlineCog6Tooth,
 } from "react-icons/hi2";
 import { IoBagOutline, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
@@ -114,6 +115,19 @@ const ClosedSideBar = ({ user }: { user: User }) => {
                             }`}
                         >
                             <IoBagOutline className="w-6 h-6" />
+                        </Link>
+                    </Tooltip>
+
+                    <Tooltip title="Settings" placement="right">
+                        <Link
+                            href={route("admin.settings.index")}
+                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
+                                route().current("admin.settings.index")
+                                    ? "bg-blue-700 text-white"
+                                    : "hover:bg-blue-500 hover:text-white"
+                            }`}
+                        >
+                            <HiOutlineCog6Tooth className="w-6 h-6" />
                         </Link>
                     </Tooltip>
 

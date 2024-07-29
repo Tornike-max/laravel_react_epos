@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,6 +19,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
@@ -29,6 +34,10 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -45,6 +54,11 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);

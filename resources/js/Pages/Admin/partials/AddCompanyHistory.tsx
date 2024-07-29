@@ -9,27 +9,27 @@ import { Transition } from "@headlessui/react";
 import { useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
-const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
+const AddCompanyHistory = () => {
     const user = usePage<PageProps>().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
+    const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm<HistoryType>();
 
     const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        patch(route("admin.history.update", { history: history?.id }));
+        post(route("admin.history.store"));
     };
 
     return (
         <section className="max-w-xl w-full">
             <header className="w-full flex justify-center items-center flex-col">
                 <h2 className="text-lg font-medium text-gray-900">
-                    Update Form
+                    Create Form
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your company history.
+                    Add your company history.
                 </p>
             </header>
 
@@ -41,7 +41,7 @@ const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
                         type="date"
                         id="date"
                         className="mt-1 block w-full"
-                        defaultValue={history?.date}
+                        defaultValue={data?.date}
                         onChange={(e) => setData("date", e.target.value)}
                         required
                         isFocused
@@ -57,7 +57,7 @@ const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
                     <TextArea
                         id="h-description"
                         className="mt-1 block w-full"
-                        defaultValue={history?.description}
+                        defaultValue={data?.description}
                         onChange={(e) => setData("description", e.target.value)}
                         required
                         autoComplete="description"
@@ -86,4 +86,4 @@ const UpdateHistory = ({ history }: { history: HistoryType | undefined }) => {
     );
 };
 
-export default UpdateHistory;
+export default AddCompanyHistory;
