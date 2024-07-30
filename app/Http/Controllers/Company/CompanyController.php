@@ -21,16 +21,20 @@ class CompanyController extends Controller
         $resource = null;
 
         if ($request->has('history')) {
-            $data = History::first();
-            $resource = HistoryResource::class;
-        }
-        if ($request->has('about') || $request->has('access')  || !$request->has('history')) {
-            $data = About::first();
-            $resource = AboutResource::class;
-        }
+            $data = History::query()->latest()->paginate(10);
 
-        return inertia('Company/Index', [
-            'data' => $data ? new $resource($data) : null,
-        ]);
+            return inertia('Company/Index', [
+                'histories' => $data ? HistoryResource::collection($data) : null,
+            ]);
+        } else {
+            if ($request->has('about') || $request->has('access')  || !$request->has('history')) {
+                $data = About::first();
+                $resource = AboutResource::class;
+
+                return inertia('Company/Index', [
+                    'data' => $data ? new $resource($data) : null,
+                ]);
+            }
+        }
     }
 }

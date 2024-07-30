@@ -1,9 +1,9 @@
-import { HistoryType } from "@/types/types";
+import { PageProps } from "@/types";
 import { formatDate } from "@/ui/formatDate";
+import Pagination from "@/ui/Pagination";
 import { motion } from "framer-motion";
-import React from "react";
 
-const HistoryBox = ({ data }: { data: HistoryType | any }) => {
+const HistoryBox = ({ histories }: PageProps) => {
     return (
         <motion.div
             variants={{
@@ -17,18 +17,24 @@ const HistoryBox = ({ data }: { data: HistoryType | any }) => {
                 delay: 0.2,
             }}
         >
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mx-4">
-                <div className="p-6 text-gray-900">
-                    <div className="w-full flex flex-col justify-center items-start gap-4">
-                        <h1 className="font-bold text-lg sm:text-xl">
-                            {formatDate(data.date)}
-                        </h1>
-                        <p className="font-medium text-sm sm:text-base text-gray-700">
-                            {data.description}
-                        </p>
+            {histories?.data.map((history) => (
+                <div
+                    key={history.id}
+                    className="bg-white overflow-hidden shadow-sm sm:rounded-lg mx-4 my-4"
+                >
+                    <div className="p-6 text-gray-900">
+                        <div className="w-full flex flex-col justify-center items-start gap-4">
+                            <h1 className="font-bold text-lg sm:text-xl">
+                                {formatDate(history.date)}
+                            </h1>
+                            <p className="font-medium text-sm sm:text-base text-gray-700">
+                                {history.description}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ))}
+            <Pagination links={histories?.meta.links ?? []} />
         </motion.div>
     );
 };

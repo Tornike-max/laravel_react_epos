@@ -283,6 +283,16 @@ class AdminController extends Controller
         return to_route('admin.company')->with('success', 'About Data Updated Successfully');
     }
 
+    public function createHistory()
+    {
+        if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+
+        return inertia('Admin/CreateHistory');
+    }
+
     public function storeHistory(CreateHistoryRequest $request)
     {
         if (!Gate::allows('admin')) {

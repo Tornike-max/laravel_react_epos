@@ -7,7 +7,7 @@ import AboutBox from "./AboutBox";
 import AccessBox from "./AccessBox";
 import { getHref } from "@/ui/getHref";
 
-const Index = ({ auth, data }: PageProps) => {
+const Index = ({ auth, data, histories }: PageProps) => {
     const pageHrefName = getHref();
     return (
         <AuthenticatedLayout
@@ -26,8 +26,8 @@ const Index = ({ auth, data }: PageProps) => {
                     {data && pageHrefName === "about" && (
                         <AboutBox data={data} />
                     )}
-                    {data && pageHrefName === "history" && (
-                        <HistoryBox data={data} />
+                    {histories && pageHrefName === "history" && (
+                        <HistoryBox histories={histories} auth={auth} />
                     )}
                     {data && pageHrefName === "access" && (
                         <AccessBox data={data} />

@@ -7,7 +7,7 @@ import { FormEvent } from "react";
 import { HistoryType } from "@/types/types";
 
 const Company = ({ auth, histories }: PageProps) => {
-    const { delete: destroy } = useForm<HistoryType>();
+    const { delete: destroy, get } = useForm<HistoryType>();
 
     const handleSubmit = (
         e: FormEvent<HTMLFormElement>,
@@ -16,7 +16,10 @@ const Company = ({ auth, histories }: PageProps) => {
         e.preventDefault();
         destroy(route("admin.history.delete", { history: historyId }));
     };
-    const handleNavigate = () => {};
+    const handleNavigate = () => {
+        console.log("hello");
+        get(route("admin.history.create"));
+    };
     return (
         <AdminLayout user={auth.user}>
             <Head title="Press-Release" />

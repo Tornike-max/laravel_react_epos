@@ -44,7 +44,7 @@ export type PageProps<
         meta: PaginationMeta;
     };
     press?: PressRelease;
-    data?: AboutType | HistoryType;
+    data?: AboutType;
     about?: AboutType;
     history?: HistoryType;
     productsCount?: number;
