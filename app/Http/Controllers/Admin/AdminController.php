@@ -110,8 +110,8 @@ class AdminController extends Controller
 
         $validatedData = $request->validated();
 
-        $user->update($validatedData);
 
+        $user->update($validatedData);
 
         return to_route('admin.team')->with('success', 'Team member updated successfully');
     }

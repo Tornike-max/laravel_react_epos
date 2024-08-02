@@ -24,7 +24,8 @@ class UpdateTeamMemberRequest extends FormRequest
         return [
             'name' => 'nullable|string|max:255',
             'email' => 'nullable|string',
-            'is_admin' => 'nullable'
+            'is_admin' => 'nullable',
+            'is_editor' => 'nullable'
         ];
     }
 }

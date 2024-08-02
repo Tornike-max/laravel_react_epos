@@ -63,15 +63,15 @@ const EditMemberForm = ({ member }: { member: User | undefined }) => {
 
                 <div>
                     <InputLabel
-                        htmlFor="is_admin"
-                        value="Give him admin status"
+                        htmlFor="is_editor"
+                        value="Give him editor status"
                     />
 
                     <Checkbox
-                        id="is_admin"
-                        defaultChecked={member?.is_admin === 1 ? true : false}
-                        onChange={(e) => setData("is_admin", e.target.checked)}
-                        autoComplete="is_admin"
+                        id="is_editor"
+                        defaultChecked={member?.is_editor === 1 ? true : false}
+                        onChange={(e) => setData("is_editor", e.target.checked)}
+                        autoComplete="is_editor"
                     />
 
                     <InputError className="mt-2" message={errors.is_admin} />

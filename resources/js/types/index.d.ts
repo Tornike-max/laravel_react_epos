@@ -13,6 +13,7 @@ import {
 
 export interface User {
     is_admin: number | boolean;
+    is_editor: number | boolean;
     id: number;
     name: string;
     email: string;
@@ -27,6 +28,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    user: User;
     products?: {
         data: Product[];
         links: PaginationLinks;
