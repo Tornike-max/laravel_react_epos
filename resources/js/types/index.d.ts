@@ -13,7 +13,7 @@ import {
 
 export interface User {
     is_admin: number | boolean;
-    is_editor: number | boolean;
+    access_type: string;
     id: number;
     name: string;
     email: string;

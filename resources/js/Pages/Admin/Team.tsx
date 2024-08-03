@@ -49,7 +49,7 @@ const Team = ({ auth, team }: PageProps) => {
                                             Email
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
-                                            Admin
+                                            Access type
                                         </th>
                                         <th className="py-2 px-4 border-b text-start">
                                             Actions
@@ -73,9 +73,11 @@ const Team = ({ auth, team }: PageProps) => {
                                                     {member.email}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {member.is_admin === 1
-                                                        ? "Admin"
-                                                        : "Member"}
+                                                    {`${member.access_type
+                                                        .slice(0, 1)
+                                                        .toUpperCase()}${member.access_type.slice(
+                                                        1
+                                                    )}`}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
                                                     <div className="flex items-center justify-start gap-1 ">
@@ -104,20 +106,26 @@ const Team = ({ auth, team }: PageProps) => {
                                                                 >
                                                                     Edit
                                                                 </Link>
-                                                                <form
-                                                                    onSubmit={(
-                                                                        e
-                                                                    ) =>
-                                                                        handleSubmit(
-                                                                            e,
-                                                                            member.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
+                                                                {auth.user
+                                                                    .access_type ===
+                                                                "editor" ? (
+                                                                    ""
+                                                                ) : (
+                                                                    <form
+                                                                        onSubmit={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleSubmit(
+                                                                                e,
+                                                                                member.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                )}
                                                             </>
                                                         )}
                                                     </div>

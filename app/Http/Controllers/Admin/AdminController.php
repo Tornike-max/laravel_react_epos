@@ -78,6 +78,7 @@ class AdminController extends Controller
         }
         $validatedData = $request->validated();
         $validatedData['is_admin'] = 0;
+        $validatedData['access_type'] = 'member';
 
         User::create($validatedData);
         return to_route('admin.team')->with('success', 'New team member added successfully');
@@ -89,9 +90,9 @@ class AdminController extends Controller
             abort(401);
         }
 
-        if ($user->is_admin && $user->id === auth()->id()) {
-            return abort(401);
-        }
+        // if ($user->is_admin && $user->id === auth()->id()) {
+        //     return abort(401);
+        // }
 
         return inertia('Admin/EditTeamMember', [
             'member' => $user
@@ -110,7 +111,6 @@ class AdminController extends Controller
 
         $validatedData = $request->validated();
 
-
         $user->update($validatedData);
 
         return to_route('admin.team')->with('success', 'Team member updated successfully');
@@ -121,6 +121,11 @@ class AdminController extends Controller
         if (!Gate::allows('admin')) {
             abort(401);
         }
+
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
+
         if ($user->is_admin && $user->id === auth()->id()) {
             abort(401);
         };

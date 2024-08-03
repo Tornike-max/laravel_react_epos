@@ -19,6 +19,8 @@ const EditMemberForm = ({ member }: { member: User | undefined }) => {
         patch(route("admin.team.update", { user: member?.id }));
     };
 
+    const types = ["admin", "editor", "member"];
+
     return (
         <section className="max-w-xl w-full">
             <header className="w-full flex items-center justify-center flex-col">
@@ -62,19 +64,21 @@ const EditMemberForm = ({ member }: { member: User | undefined }) => {
                 </div>
 
                 <div>
-                    <InputLabel
-                        htmlFor="is_editor"
-                        value="Give him editor status"
-                    />
+                    <InputLabel htmlFor="is_editor" value="Give him status" />
 
-                    <Checkbox
-                        id="is_editor"
-                        defaultChecked={member?.is_editor === 1 ? true : false}
-                        onChange={(e) => setData("is_editor", e.target.checked)}
-                        autoComplete="is_editor"
-                    />
+                    <select
+                        className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full`}
+                        defaultValue={member?.access_type}
+                        onChange={(e) => setData("access_type", e.target.value)}
+                    >
+                        {types?.map((type) => (
+                            <option key={type} value={type}>
+                                {type.toUpperCase()}
+                            </option>
+                        ))}
+                    </select>
 
-                    <InputError className="mt-2" message={errors.is_admin} />
+                    <InputError className="mt-2" message={errors.access_type} />
                 </div>
 
                 <div className="flex items-center gap-4">

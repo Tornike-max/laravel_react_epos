@@ -27,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('editor', function (User $user): bool {
-            return (bool) $user->is_editor;
+            return (bool) ($user->access_type === 'editor');
+        });
+
+        Gate::define('member', function (User $user): bool {
+            return (bool) ($user->access_type === 'member');
         });
     }
 }
