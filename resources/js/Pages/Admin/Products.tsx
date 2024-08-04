@@ -6,6 +6,7 @@ import generateImagePath from "@/ui/generateImagePath";
 import NoDataInfo from "@/ui/NoDataInfo";
 import Pagination from "@/ui/Pagination";
 import { Head, Link, useForm } from "@inertiajs/react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
 
 const Products = ({ auth, products }: PageProps) => {
     const { delete: destroy, get } = useForm();
@@ -23,6 +24,9 @@ const Products = ({ auth, products }: PageProps) => {
         <AdminLayout user={auth.user}>
             <Head title="Products" />
             <div className="py-12">
+                <div className="w-full my-4 flex justify-center items-center mt-6 bg-white border-[1px] border-gray-200 rounded-lg">
+                    <ApplicationLogo src="/images/dark-epos.png" />
+                </div>
                 <div className="w-full">
                     <div className="w-full mt-6 bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                         <div className="p-6">
@@ -112,20 +116,24 @@ const Products = ({ auth, products }: PageProps) => {
                                                                     >
                                                                         Edit
                                                                     </Link>
-                                                                    <form
-                                                                        onSubmit={(
-                                                                            e
-                                                                        ) =>
-                                                                            handleSubmit(
-                                                                                e,
-                                                                                product.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
-                                                                            Delete
-                                                                        </button>
-                                                                    </form>
+                                                                    {auth.user
+                                                                        .access_type ===
+                                                                        "admin" && (
+                                                                        <form
+                                                                            onSubmit={(
+                                                                                e
+                                                                            ) =>
+                                                                                handleSubmit(
+                                                                                    e,
+                                                                                    product.id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
+                                                                                Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    )}
                                                                 </div>
                                                             </td>
                                                         </tr>

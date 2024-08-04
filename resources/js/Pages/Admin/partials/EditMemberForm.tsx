@@ -10,7 +10,13 @@ import { Transition } from "@headlessui/react";
 import { useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
-const EditMemberForm = ({ member }: { member: User | undefined }) => {
+const EditMemberForm = ({
+    user,
+    member,
+}: {
+    user: User;
+    member: User | undefined;
+}) => {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm<User>();
 
@@ -63,23 +69,60 @@ const EditMemberForm = ({ member }: { member: User | undefined }) => {
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="is_editor" value="Give him status" />
+                {user.access_type === "admin" ? (
+                    <div>
+                        <InputLabel
+                            htmlFor="is_editor"
+                            value="Give him status"
+                        />
 
-                    <select
-                        className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full`}
-                        defaultValue={member?.access_type}
-                        onChange={(e) => setData("access_type", e.target.value)}
-                    >
-                        {types?.map((type) => (
-                            <option key={type} value={type}>
-                                {type.toUpperCase()}
-                            </option>
-                        ))}
-                    </select>
+                        <select
+                            className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full`}
+                            defaultValue={member?.access_type}
+                            onChange={(e) =>
+                                setData("access_type", e.target.value)
+                            }
+                        >
+                            {types?.map((type) => (
+                                <option key={type} value={type}>
+                                    {type.toUpperCase()}
+                                </option>
+                            ))}
+                        </select>
 
-                    <InputError className="mt-2" message={errors.access_type} />
-                </div>
+                        <InputError
+                            className="mt-2"
+                            message={errors.access_type}
+                        />
+                    </div>
+                ) : (
+                    <div>
+                        <InputLabel
+                            htmlFor="is_editor"
+                            value="Give him status"
+                        />
+
+                        <select
+                            disabled
+                            className={`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full cursor-not-allowed`}
+                            defaultValue={member?.access_type}
+                            onChange={(e) =>
+                                setData("access_type", e.target.value)
+                            }
+                        >
+                            {types?.map((type) => (
+                                <option key={type} value={type}>
+                                    {type.toUpperCase()}
+                                </option>
+                            ))}
+                        </select>
+
+                        <InputError
+                            className="mt-2"
+                            message={errors.access_type}
+                        />
+                    </div>
+                )}
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>

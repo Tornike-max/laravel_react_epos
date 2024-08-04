@@ -13,7 +13,7 @@ const CreateTeamMember = ({ auth, member }: PageProps) => {
                     <h1 className="text-3xl font-bold mb-6 text-gray-800">
                         Edit Team Member
                     </h1>
-                    <EditMemberForm member={member} />
+                    <EditMemberForm user={auth.user} member={member} />
                 </div>
             </div>
         </AdminLayout>

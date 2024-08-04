@@ -38,6 +38,10 @@ class ProductController extends Controller
             abort(401);
         }
 
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
+
         return inertia('Products/Create', [
             'csrfToken' => csrf_field(),
         ]);
@@ -49,6 +53,10 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (Gate::allows('editor')) {
             abort(401);
         }
 
@@ -124,6 +132,10 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (Gate::allows('editor')) {
             abort(401);
         }
 

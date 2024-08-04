@@ -7,6 +7,7 @@ import { FormEvent } from "react";
 import generateImagePath from "@/ui/generateImagePath";
 import Pagination from "@/ui/Pagination";
 import NoDataInfo from "@/ui/NoDataInfo";
+import { formatDate } from "@/ui/formatDate";
 
 export default function Index({
     auth,
@@ -75,14 +76,17 @@ export default function Index({
                             </div>
                         </div>
                     </div>
-                    <div className="w-full flex justify-center items-center my-4">
-                        <button
-                            onClick={handleNavigateToCreateForm}
-                            className="w-full py-2 px-3 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
-                        >
-                            Create Product
-                        </button>
-                    </div>
+                    {auth.user.access_type === "admin" && (
+                        <div className="w-full flex justify-center items-center my-4">
+                            <button
+                                onClick={handleNavigateToCreateForm}
+                                className="w-full py-2 px-3 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
+                            >
+                                Create Product
+                            </button>
+                        </div>
+                    )}
+
                     <div className="w-full mt-6 bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                         <div className="p-6">
                             <h2 className="text-xl font-semibold mb-4">
@@ -151,7 +155,9 @@ export default function Index({
                                                     {product.for}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
-                                                    {product.release}
+                                                    {formatDate(
+                                                        product.release
+                                                    )}
                                                 </td>
                                                 <td className="py-2 px-4 border-b">
                                                     <div className="flex items-center justify-start gap-1 ">
@@ -164,18 +170,22 @@ export default function Index({
                                                         >
                                                             Edit
                                                         </Link>
-                                                        <form
-                                                            onSubmit={(e) =>
-                                                                handleSubmit(
-                                                                    e,
-                                                                    product.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
-                                                                Delete
-                                                            </button>
-                                                        </form>
+                                                        {auth.user
+                                                            .access_type ===
+                                                            "admin" && (
+                                                            <form
+                                                                onSubmit={(e) =>
+                                                                    handleSubmit(
+                                                                        e,
+                                                                        product.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                <button className="py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

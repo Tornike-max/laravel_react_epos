@@ -21,7 +21,7 @@ const ProductShow = ({ auth, product }: PageProps) => {
         <AdminLayout user={auth.user}>
             <Head title={`Product - ${product?.title}`} />
             <div className="py-12">
-                <div className="w-full max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                <div className="w-full max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold mb-6 text-gray-800">
                         Product Details
                     </h1>
@@ -79,19 +79,21 @@ const ProductShow = ({ auth, product }: PageProps) => {
                                 >
                                     Edit
                                 </Link>
-                                <form
-                                    onSubmit={(e) =>
-                                        handleSubmit(e, product?.id)
-                                    }
-                                >
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="error"
+                                {auth.user.is_admin === 1 && (
+                                    <form
+                                        onSubmit={(e) =>
+                                            handleSubmit(e, product?.id)
+                                        }
                                     >
-                                        Delete
-                                    </Button>
-                                </form>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            color="error"
+                                        >
+                                            Delete
+                                        </Button>
+                                    </form>
+                                )}
                             </Stack>
                         </div>
                     </div>

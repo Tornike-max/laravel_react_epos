@@ -1,3 +1,4 @@
+import ApplicationLogo from "@/Components/ApplicationLogo";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { PageProps } from "@/types";
 import { formatDate } from "@/ui/formatDate";
@@ -21,15 +22,21 @@ const Press = ({ auth, pressRelease }: PageProps) => {
         <AdminLayout user={auth.user}>
             <Head title="Press-Release" />
             <div className="py-12">
+                <div className="w-full my-4 flex justify-center items-center mt-6 bg-white border-[1px] border-gray-200 rounded-lg">
+                    <ApplicationLogo src="/images/dark-epos.png" />
+                </div>
                 <div className="w-full ">
-                    <div className="w-full flex justify-center items-center my-4">
-                        <button
-                            onClick={handleNavigate}
-                            className="w-full py-2 px-3 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
-                        >
-                            Add New Press Release
-                        </button>
-                    </div>
+                    {auth.user.access_type === "admin" && (
+                        <div className="w-full flex justify-center items-center my-4">
+                            <button
+                                onClick={handleNavigate}
+                                className="w-full py-2 px-3 rounded-lg bg-blue-700 text-slate-100 hover:bg-blue-600 hover:text-slate-50 duration-300 transition-all"
+                            >
+                                Add New Press Release
+                            </button>
+                        </div>
+                    )}
+
                     <div className="w-full mt-6 bg-white border-[1px] border-gray-200 hover:border-blue-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden shadow-md rounded-lg">
                         <div className="p-6">
                             <h2 className="text-xl font-semibold mb-4">
@@ -87,18 +94,22 @@ const Press = ({ auth, pressRelease }: PageProps) => {
                                                         >
                                                             Edit
                                                         </Link>
-                                                        <form
-                                                            onSubmit={(e) =>
-                                                                handleSubmit(
-                                                                    e,
-                                                                    press.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <button className="w-full text-center py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
-                                                                Delete
-                                                            </button>
-                                                        </form>
+                                                        {auth.user
+                                                            .access_type ===
+                                                            "admin" && (
+                                                            <form
+                                                                onSubmit={(e) =>
+                                                                    handleSubmit(
+                                                                        e,
+                                                                        press.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                <button className="w-full text-center py-1 px-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 hover:text-slate-50 duration-300 transition-all">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

@@ -68,12 +68,20 @@ class AdminController extends Controller
             abort(401);
         }
 
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
+
         return inertia('Admin/CreateTeamMember');
     }
 
     public function addTeamMember(AddTeamMemberRequest $request)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (Gate::allows('editor')) {
             abort(401);
         }
         $validatedData = $request->validated();
@@ -107,6 +115,10 @@ class AdminController extends Controller
 
         if ($user->is_admin && $user->id === auth()->id()) {
             return abort(401);
+        }
+
+        if (Gate::allows('editor') && $request->has('access_type')) {
+            abort(401);
         }
 
         $validatedData = $request->validated();
@@ -177,6 +189,9 @@ class AdminController extends Controller
         if (!Gate::allows('admin')) {
             abort(401);
         }
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
         $products = Product::query()->with('user')->latest()->get();
 
         return inertia('Admin/CreatePressRelease', [
@@ -187,6 +202,9 @@ class AdminController extends Controller
     public function storePressRelease(CreatePressRequets $request)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+        if (Gate::allows('editor')) {
             abort(401);
         }
         $validatedData = $request->validated();
@@ -242,6 +260,10 @@ class AdminController extends Controller
             abort(401);
         }
 
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
+
         if (empty($press)) {
             return;
         }
@@ -294,6 +316,9 @@ class AdminController extends Controller
             abort(401);
         }
 
+        if (Gate::allows('editor')) {
+            abort(401);
+        }
 
         return inertia('Admin/CreateHistory');
     }
@@ -301,6 +326,10 @@ class AdminController extends Controller
     public function storeHistory(CreateHistoryRequest $request)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (Gate::allows('editor')) {
             abort(401);
         }
 
@@ -319,6 +348,10 @@ class AdminController extends Controller
     public function deleteHistory(History $history)
     {
         if (!Gate::allows('admin')) {
+            abort(401);
+        }
+
+        if (Gate::allows('editor')) {
             abort(401);
         }
 
