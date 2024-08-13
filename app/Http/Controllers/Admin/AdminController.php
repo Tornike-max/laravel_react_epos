@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -51,7 +51,7 @@ class AdminController extends Controller
     //Team methods
     public function team()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -64,11 +64,7 @@ class AdminController extends Controller
 
     public function createTeamMember()
     {
-        if (!Gate::allows('admin')) {
-            abort(401);
-        }
-
-        if (Gate::allows('editor')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -77,13 +73,11 @@ class AdminController extends Controller
 
     public function addTeamMember(AddTeamMemberRequest $request)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
-        if (Gate::allows('editor')) {
-            abort(401);
-        }
+
         $validatedData = $request->validated();
         $validatedData['is_admin'] = 0;
         $validatedData['access_type'] = 'member';
@@ -94,7 +88,7 @@ class AdminController extends Controller
 
     public function editTeamMember(User $user)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -109,7 +103,7 @@ class AdminController extends Controller
 
     public function updateTeamMember(UpdateTeamMemberRequest $request, User $user)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -150,7 +144,7 @@ class AdminController extends Controller
     //Product methods
     public function products()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
         $products = Product::query()->with('user')->latest()->paginate(9);
@@ -162,6 +156,10 @@ class AdminController extends Controller
 
     public function showProduct(Product $product)
     {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
+            abort(401);
+        }
+
         if (!isset($product)) {
             return;
         }
@@ -174,9 +172,10 @@ class AdminController extends Controller
     //Press Release methods
     public function pressRelease()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
+
         $press = PressRelease::with('product')->latest()->paginate(10);
         // dd($press);
         return inertia('Admin/Press', [
@@ -220,9 +219,10 @@ class AdminController extends Controller
 
     public function editPressRelease(PressRelease $press)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
+
         $products = Product::query()->with('user')->latest()->get();
 
 
@@ -239,7 +239,7 @@ class AdminController extends Controller
 
     public function updatePressRelease(UpdatePressRequest $request, PressRelease $press)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -275,9 +275,10 @@ class AdminController extends Controller
     //Company methods
     public function company()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
+
         $history = History::query()->latest()->paginate(10);
         return inertia('Admin/Company', [
             'histories' => HistoryResource::collection($history)
@@ -286,7 +287,7 @@ class AdminController extends Controller
 
     public function editHistory(History $history)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -297,7 +298,7 @@ class AdminController extends Controller
 
     public function updateHistory(HistoryUpdateRequest $request, History $history)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -368,7 +369,7 @@ class AdminController extends Controller
 
     public function settings()
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
 
@@ -382,9 +383,10 @@ class AdminController extends Controller
 
     public function updateAbout(AboutUpdateRequest $request, About $about)
     {
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
+
         $validatedData = $request->validated();
 
         if (count($validatedData) === 0) {
