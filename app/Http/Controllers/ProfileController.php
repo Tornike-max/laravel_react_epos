@@ -20,9 +20,10 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
 
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
@@ -35,7 +36,7 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
 
-        if (!Gate::allows('admin')) {
+        if (!Gate::allows('admin') && !Gate::allows('editor')) {
             abort(401);
         }
         $request->user()->fill($request->validated());

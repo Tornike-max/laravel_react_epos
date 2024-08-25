@@ -47,7 +47,6 @@ class AdminController extends Controller
         ]);
     }
 
-
     //Team methods
     public function team()
     {
@@ -271,7 +270,6 @@ class AdminController extends Controller
         $press->delete();
     }
 
-
     //Company methods
     public function company()
     {
@@ -364,9 +362,7 @@ class AdminController extends Controller
         return to_route('admin.company')->with('success', 'History deleted successfully');
     }
 
-
     //settings #about #access
-
     public function settings()
     {
         if (!Gate::allows('admin') && !Gate::allows('editor')) {
@@ -374,7 +370,6 @@ class AdminController extends Controller
         }
 
         $about = About::query()->first();
-
 
         return inertia('Admin/Settings', [
             'about' => new AboutResource($about),

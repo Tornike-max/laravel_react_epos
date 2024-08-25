@@ -25,8 +25,6 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,6 +40,5 @@ Route::get('support', [SupportController::class, 'index'])->name('support.index'
 Route::post('support', [SupportController::class, 'store'])->name('support.store');
 
 require __DIR__ . '/admin.php';
-
 
 require __DIR__ . '/auth.php';

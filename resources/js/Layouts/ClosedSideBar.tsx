@@ -23,11 +23,7 @@ const ClosedSideBar = ({ user }: { user: User }) => {
             <nav className="mt-4">
                 <ul className="flex flex-col gap-2">
                     <Tooltip
-                        title={
-                            user &&
-                            user.is_admin === 1 &&
-                            `${user.name}'s Profile`
-                        }
+                        title={user && `${user.name}'s Profile`}
                         placement="right"
                     >
                         <Link
