@@ -27,7 +27,11 @@ const Index = ({ auth, data, histories }: PageProps) => {
                         <AboutBox data={data} />
                     )}
                     {histories && pageHrefName === "history" && (
-                        <HistoryBox histories={histories} auth={auth} />
+                        <HistoryBox
+                            histories={histories}
+                            auth={auth}
+                            user={auth.user}
+                        />
                     )}
                     {data && pageHrefName === "access" && (
                         <AccessBox data={data} />

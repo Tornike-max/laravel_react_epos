@@ -9,7 +9,7 @@ const WelcomePageMainContent = () => {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                 <a
                     href={route("products.index")}
-                    className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-90"
+                    className="flex items-start gap-4 rounded-lg bg-gray-900 p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
                 >
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
                         <AiOutlineProduct className="text-3xl text-red-600" />
@@ -20,7 +20,7 @@ const WelcomePageMainContent = () => {
                             Products
                         </h2>
 
-                        <p className="mt-4 text-sm/relaxed">
+                        <p className="mt-4 text-sm/relaxed text-white/80 hover:text-white/90 duration-500 transition-all">
                             Welcome to our exciting games! One of our latest is
                             Babylon, featuring thrilling gameplay and stunning
                             graphics. Dive into the action and start your gaming
@@ -29,7 +29,7 @@ const WelcomePageMainContent = () => {
                     </div>
 
                     <svg
-                        className="size-6 shrink-0 self-center stroke-[#FF2D20]"
+                        className="size-6 shrink-0 self-center font-extrabold stroke-[#FF2D20]"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -45,7 +45,7 @@ const WelcomePageMainContent = () => {
 
                 <a
                     href={route("press-release.index")}
-                    className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-90"
+                    className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
                 >
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
                         <HiOutlineNewspaper className="text-3xl text-red-600" />
@@ -56,7 +56,7 @@ const WelcomePageMainContent = () => {
                             Press Release
                         </h2>
 
-                        <p className="mt-4 text-sm/relaxed">
+                        <p className="mt-4 text-sm/relaxed text-white/80 hover:text-white/90 duration-500 transition-all">
                             We’re excited to announce Babylon, our newest arcade
                             game. Featuring stunning visuals and engaging
                             gameplay, Babylon offers a thrilling experience. Get
@@ -66,7 +66,7 @@ const WelcomePageMainContent = () => {
                     </div>
 
                     <svg
-                        className="size-6 shrink-0 self-center stroke-[#FF2D20]"
+                        className="size-6 shrink-0 self-center font-extrabold stroke-[#FF2D20]"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -82,17 +82,17 @@ const WelcomePageMainContent = () => {
             </div>
             <a
                 href={route("press-release.index")}
-                className="flex mt-6 lg:mt-8 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-90"
+                className="flex mt-6 lg:mt-8 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
             >
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
-                    <IoBagOutline className="text-3xl text-red-600" />
+                    <IoBagOutline className="text-3xl text-red-600 " />
                 </div>
                 <div className="pt-3 sm:pt-5">
                     <h2 className="text-xl font-semibold text-black dark:text-white">
                         Company
                     </h2>
 
-                    <p className="mt-4 text-sm/relaxed">
+                    <p className="mt-4 text-sm/relaxed text-white/80 hover:text-white/90 duration-500 transition-all">
                         At Epos Software Limited, we are dedicated to creating
                         immersive and innovative gaming experiences. Explore our
                         diverse range of games designed to captivate and

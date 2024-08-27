@@ -9,7 +9,7 @@ const ProductsGrid = ({ products }: PageProps) => {
         console.log(id);
     };
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-4 bg-gray-800 p-4 rounded-lg">
             {products &&
                 products.data.map((product: Product) => (
                     <Link
