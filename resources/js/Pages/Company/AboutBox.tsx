@@ -11,34 +11,42 @@ const AboutBox = ({ data }: { data: AboutType | any }) => {
             initial="hidden"
             animate="visible"
             transition={{
-                duration: 0.3,
+                duration: 0.5,
                 delay: 0.2,
             }}
         >
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mx-4">
-                <div className="p-6 text-gray-900">
+            <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg mx-4">
+                <div className="p-6">
                     <div className="max-w-lg w-full flex flex-col gap-6">
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <p className="font-semibold">Company Name:</p>
+                            <p className="font-semibold text-gray-300">
+                                Company Name:
+                            </p>
                             <p>{data.companyName}</p>
                         </div>
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <p className="font-semibold">Date of Foundation:</p>
+                            <p className="font-semibold text-gray-300">
+                                Date of Foundation:
+                            </p>
                             <p>{data.founded_at}</p>
                         </div>
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <p className="font-semibold">Address:</p>
+                            <p className="font-semibold text-gray-300">
+                                Address:
+                            </p>
                             <p>
                                 {data.Address.includes("Hong Kong") &&
                                     "Hong Kong"}
                             </p>
                         </div>
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <p className="font-semibold">DUNS Number:</p>
+                            <p className="font-semibold text-gray-300">
+                                DUNS Number:
+                            </p>
                             <p>{data.DUNS}</p>
                         </div>
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <p className="font-semibold">
+                            <p className="font-semibold text-gray-300">
                                 Description of Business:
                             </p>
                             <p>{data.businessDesc}</p>

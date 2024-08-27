@@ -9,7 +9,7 @@ const Index = ({ auth }: PageProps) => {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-100 leading-tight">
                     History
                 </h2>
             }
@@ -24,39 +24,42 @@ const Index = ({ auth }: PageProps) => {
                     initial="hidden"
                     animate="visible"
                     transition={{
-                        duration: 0.3,
+                        duration: 0.5,
                         delay: 0.2,
                     }}
                     className="w-full flex flex-col items-start justify-center gap-4 sm:pt-4"
                 >
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
+                    <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg p-4">
                         <div
-                            className={`w-full flex items-center justify-start gap-4 text-base font-medium  `}
+                            className={`w-full flex items-center justify-start gap-4 text-base font-medium`}
                         >
                             <Tooltip title="About" arrow enterDelay={500}>
                                 <span
                                     onClick={() => {}}
-                                    className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-300"
+                                    className="relative cursor-pointer hover:text-gray-300"
                                 >
                                     About
+                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
                                 </span>
                             </Tooltip>
                             <span>|</span>
                             <Tooltip title="History" arrow enterDelay={500}>
                                 <span
                                     onClick={() => {}}
-                                    className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-300"
+                                    className="relative cursor-pointer hover:text-gray-300"
                                 >
                                     History
+                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
                                 </span>
                             </Tooltip>
                             <span>|</span>
                             <Tooltip title="Access" arrow enterDelay={500}>
                                 <span
                                     onClick={() => {}}
-                                    className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-300"
+                                    className="relative cursor-pointer hover:text-gray-300"
                                 >
                                     Access
+                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
                                 </span>
                             </Tooltip>
                         </div>

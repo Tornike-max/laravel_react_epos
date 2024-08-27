@@ -24,7 +24,7 @@ const Index = ({ auth, pressRelease }: PageProps) => {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-100 leading-tight">
                     Press Release
                 </h2>
             }
@@ -49,24 +49,24 @@ const Index = ({ auth, pressRelease }: PageProps) => {
                         {pressRelease?.data.length !== 0 ? (
                             pressRelease?.data.map((press) => (
                                 <div
-                                    className="flex flex-col justify-center items-start gap-4 bg-white hover:bg-slate-50 duration-300 transition-all overflow-hidden shadow-sm hover:shadow-lg sm:rounded-lg p-4 my-2"
+                                    className="flex flex-col justify-center items-start gap-4 bg-gray-800 hover:bg-gray-700 duration-500 transition-all overflow-hidden shadow-sm hover:shadow-lg sm:rounded-lg p-4 my-2"
                                     key={press.id}
                                 >
                                     <div className="flex flex-col justify-center items-start gap-2">
-                                        <h1 className="text-lg text-gray-800 font-semibold">
+                                        <h1 className="text-lg text-gray-200 font-semibold">
                                             {formatDate(press.date)}
                                         </h1>
-                                        <p className="max-w-xl w-full text-base">
+                                        <p className="max-w-xl w-full text-base text-gray-300">
                                             {press.info}
                                         </p>
                                     </div>
 
                                     <div className="flex flex-col justify-center items-start gap-2">
-                                        <h2 className="font-medium text-gray-800 text-lg">
+                                        <h2 className="font-medium text-gray-200 text-lg">
                                             {press.product.title}
                                         </h2>
 
-                                        <p className="max-w-xl w-full text-base">
+                                        <p className="max-w-xl w-full text-base text-gray-300">
                                             {press.product.description}
                                         </p>
                                     </div>
@@ -75,11 +75,11 @@ const Index = ({ auth, pressRelease }: PageProps) => {
                                             "products.show",
                                             press.product.id
                                         )}
-                                        className="py-2 px-3 rounded-lg text-slate-50 bg-blue-500 hover:bg-blue-600 hover:text-slate-100 duration-300 transition-all"
+                                        className="py-2 px-3 rounded-lg text-slate-50 bg-blue-500 hover:bg-blue-600 hover:text-slate-100 duration-500 transition-all"
                                     >
                                         See Full
                                     </Link>
-                                    <div className="w-full px-4 border-[2px] mt-4"></div>
+                                    <div className="w-full px-4 border-[2px] mt-4 border-gray-600"></div>
                                 </div>
                             ))
                         ) : (
@@ -97,11 +97,11 @@ const Index = ({ auth, pressRelease }: PageProps) => {
                                 }}
                                 className="w-full flex justify-center items-center py-4"
                             >
-                                <div className="p-6 bg-gray-200 border border-gray-200 rounded-lg shadow-md">
-                                    <p className="text-lg font-semibold text-center text-gray-800">
+                                <div className="p-6 bg-gray-700 border border-gray-600 rounded-lg shadow-md">
+                                    <p className="text-lg font-semibold text-center text-gray-200">
                                         No Data Available
                                     </p>
-                                    <p className="text-sm text-red-500">
+                                    <p className="text-sm text-red-400">
                                         Currently, there are no press releases.
                                     </p>
                                 </div>

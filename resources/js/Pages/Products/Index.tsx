@@ -1,3 +1,4 @@
+import HorizontalScroll from "@/Components/HorizontalCarousel";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { Product } from "@/types/types";
@@ -11,12 +12,12 @@ const Index = ({ auth, products }: PageProps) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
-    const sliderControlls = useAnimation();
+    const sliderControls = useAnimation();
 
     useEffect(() => {
         if (isInView) {
             mainControls.start("visible");
-            sliderControlls.start("visible");
+            sliderControls.start("visible");
         }
     }, [isInView]);
 
@@ -50,13 +51,23 @@ const Index = ({ auth, products }: PageProps) => {
                 className="py-12 px-4"
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="hidden md:block">
+                        <HorizontalScroll
+                            products={products}
+                            auth={{
+                                user: auth.user,
+                            }}
+                            user={auth.user}
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-4">
                         {products &&
-                            products.data.map((product) => (
+                            products.data.map((product: Product) => (
                                 <Link
                                     href={route("products.show", product.id)}
                                     key={product.id}
-                                    className="relative overflow-hidden group cursor-pointer"
+                                    className="relative overflow-hidden group cursor-pointer rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+                                    onClick={() => handleClickImage(product.id)}
                                 >
                                     <img
                                         src={
@@ -67,10 +78,11 @@ const Index = ({ auth, products }: PageProps) => {
                                                     : null
                                             ) || "path/to/default-image.jpg"
                                         }
-                                        alt="image"
+                                        alt={product?.title || "Product Image"}
+                                        className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:rotate-2 group-hover:scale-105"
+                                        loading="lazy"
                                     />
-
-                                    <div className="absolute rounded-xl inset-0 bg-black bg-opacity-40 transition-opacity duration-500 z-10 opacity-100 hover:opacity-0" />
+                                    <div className="absolute inset-0 rounded-xl bg-black bg-opacity-40 transition-opacity duration-500 z-10 opacity-100 group-hover:opacity-0" />
                                 </Link>
                             ))}
                     </div>

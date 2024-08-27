@@ -15,12 +15,12 @@ const Show = ({ auth, product }: PageProps) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
-    const sliderControlls = useAnimation();
+    const sliderControls = useAnimation();
 
     useEffect(() => {
         if (isInView) {
             mainControls.start("visible");
-            sliderControlls.start("visible");
+            sliderControls.start("visible");
         }
     }, [isInView]);
 
@@ -38,7 +38,7 @@ const Show = ({ auth, product }: PageProps) => {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-100 leading-tight">
                     Products
                 </h2>
             }
@@ -54,13 +54,13 @@ const Show = ({ auth, product }: PageProps) => {
                 initial="hidden"
                 animate={mainControls}
                 transition={{
-                    duration: 0.3,
+                    duration: 0.5,
                     delay: 0.2,
                 }}
                 className="py-12 px-4"
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="flex justify-center items-center gap-4 p-4">
                             <img
                                 className="max-w-lg w-full rounded-md"
@@ -68,11 +68,11 @@ const Show = ({ auth, product }: PageProps) => {
                                 alt=""
                             />
                             <div className="w-full flex justify-start items-start flex-col">
-                                <h1 className="font-semibold text-lg sm:text-xl md:text-2xl">
+                                <h1 className="font-semibold text-lg sm:text-xl md:text-2xl text-gray-100">
                                     {product?.title}
                                 </h1>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-2`}
+                                    className={`text-sm sm:text-base flex items-center gap-2 text-gray-300`}
                                 >
                                     <span>Release Date:</span>
                                     <span>
@@ -80,61 +80,73 @@ const Show = ({ auth, product }: PageProps) => {
                                     </span>
                                 </p>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-4 `}
+                                    className={`text-sm sm:text-base flex items-center gap-4 text-gray-300`}
                                 >
                                     <span>Genre:</span>
                                     <span>{product?.genre}</span>
                                 </p>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-4 `}
+                                    className={`text-sm sm:text-base flex items-center gap-4 text-gray-300`}
                                 >
                                     <span>For:</span>
                                     <span>{product?.for}</span>
                                 </p>
                                 <div className="w-full py-2">
-                                    <a
+                                    <motion.a
+                                        initial={{ scale: 0.9 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{
+                                            duration: 0.5,
+                                            delay: 0.2,
+                                        }}
                                         href={
                                             "https://www.youtube.com/watch?v=1NjOWtQ7S2o&list=PL3VM-unCzF8hy47mt9-chowaHNjfkuEVz"
                                         }
-                                        className=" px-3 py-2 md:px-4 md:py-3 text-lg flex items-center gap-2 font-medium bg-blue-500 hover:bg-blue-600 text-white w-fit  transform duration-300 transition-all rounded-lg"
+                                        className=" px-3 py-2 md:px-4 md:py-3 text-lg flex items-center gap-2 font-medium bg-blue-700 hover:bg-blue-800 text-white w-fit  transform duration-500 transition-all rounded-lg"
                                     >
                                         <HiOutlineVideoCamera />
                                         <span>Trailer</span>
-                                    </a>
+                                    </motion.a>
                                 </div>
 
                                 <div className="w-full flex items-center justify-center flex-col pt-4 gap-2">
-                                    <button
+                                    <motion.button
                                         onClick={() =>
                                             handleNavigate(
                                                 product?.gameUrl || ""
                                             )
                                         }
-                                        className={`py-2 px-3 w-full rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center gap-2 text-slate-100 text-xs md:text-sm lg:text-base duration-300 transition-all ${
+                                        className={`py-2 px-3 w-full rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center gap-2 text-slate-100 text-xs md:text-sm lg:text-base duration-500 transition-all ${
                                             product?.gameUrl
                                                 ? "cursor-pointer"
                                                 : "cursor-not-allowed"
                                         }`}
+                                        initial={{ scale: 0.9 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{
+                                            duration: 0.5,
+                                            delay: 0.2,
+                                        }}
                                     >
                                         <HiOutlineDocumentArrowDown />
                                         <span>Download apk for android</span>
-                                    </button>
+                                    </motion.button>
                                 </div>
                             </div>
                         </div>
                         <Divider
                             variant="fullWidth"
-                            className="bg-gray-300 px-4"
+                            className="bg-gray-600 px-4"
                         />
                         <div className="w-full flex items-start justify-center flex-col gap-4 p-4">
                             <h3
-                                className={`w-full text-start text-xl sm:text-2xl font-semibold `}
+                                className={`w-full text-start text-xl sm:text-2xl font-semibold text-gray-100`}
                             >
                                 Product Summary
                             </h3>
                             <div className={`w-full text-start`}>
                                 <p
-                                    className={`font-medium text-base sm:text-lg text-gray-600`}
+                                    className={`font-medium text-base sm:text-lg text-gray-400`}
                                 >
                                     {product?.description}
                                 </p>

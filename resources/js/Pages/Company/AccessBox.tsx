@@ -1,4 +1,4 @@
-import { AboutType, HistoryType } from "@/types/types";
+import { AboutType } from "@/types/types";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ const AccessBox = ({ data }: { data: AboutType | any }) => {
     useEffect(() => {
         setLoadingIframe(false);
     }, []);
+
     return (
         <motion.div
             variants={{
@@ -17,21 +18,19 @@ const AccessBox = ({ data }: { data: AboutType | any }) => {
             initial="hidden"
             animate="visible"
             transition={{
-                duration: 0.3,
+                duration: 0.5,
                 delay: 0.2,
             }}
         >
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mx-4">
-                <div className="p-6 text-gray-900">
-                    <div className=" w-full flex justify-center items-center flex-col py-8 gap-8">
+            <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg mx-4">
+                <div className="p-6">
+                    <div className="w-full flex flex-col items-center py-8 gap-8">
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p
-                                className={`max-w-[200px] w-full font-semibold   text-sm sm:text-base md:text-lg`}
-                            >
+                            <p className="max-w-[200px] w-full font-semibold text-sm sm:text-base md:text-lg text-gray-300">
                                 Map
                             </p>
                             {loadingIframe && (
-                                <div className="max-w-[1000px] w-full min-h-96 rounded-xl animate-pulse bg-slate-700"></div>
+                                <div className="max-w-[1000px] w-full min-h-96 rounded-xl animate-pulse bg-gray-700"></div>
                             )}
                             <iframe
                                 className={`border-0 max-w-[1000px] w-full min-h-96 rounded-xl ${
@@ -44,15 +43,11 @@ const AccessBox = ({ data }: { data: AboutType | any }) => {
                             ></iframe>
                         </div>
 
-                        <div className="w-full grid grid-cols-1 md:grid-cols-2">
-                            <p
-                                className={`w-full font-semibold   text-sm sm:text-base md:text-lg`}
-                            >
+                        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <p className="w-full font-semibold text-sm sm:text-base md:text-lg text-gray-300">
                                 Address
                             </p>
-                            <p
-                                className={`w-full font-semibold   text-sm sm:text-base md:text-lg`}
-                            >
+                            <p className="w-full text-sm sm:text-base md:text-lg">
                                 {data.Address}
                             </p>
                         </div>

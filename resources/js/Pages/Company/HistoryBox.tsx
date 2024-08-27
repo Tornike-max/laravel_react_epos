@@ -13,21 +13,22 @@ const HistoryBox = ({ histories }: PageProps) => {
             initial="hidden"
             animate="visible"
             transition={{
-                duration: 0.3,
+                duration: 0.5,
                 delay: 0.2,
             }}
+            className="bg-gray-900 text-gray-200"
         >
             {histories?.data.map((history) => (
                 <div
                     key={history.id}
-                    className="bg-white overflow-hidden shadow-sm sm:rounded-lg mx-4 my-4"
+                    className="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mx-4 my-4"
                 >
-                    <div className="p-6 text-gray-900">
+                    <div className="p-6">
                         <div className="w-full flex flex-col justify-center items-start gap-4">
-                            <h1 className="font-bold text-lg sm:text-xl">
+                            <h1 className="font-bold text-lg sm:text-xl text-gray-100">
                                 {formatDate(history.date)}
                             </h1>
-                            <p className="font-medium text-sm sm:text-base text-gray-700">
+                            <p className="font-medium text-sm sm:text-base text-gray-300">
                                 {history.description}
                             </p>
                         </div>
