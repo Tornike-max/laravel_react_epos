@@ -16,7 +16,7 @@ const HistoryBox = ({ histories }: PageProps) => {
                 duration: 0.5,
                 delay: 0.2,
             }}
-            className="bg-gray-900 text-gray-200"
+            className="bg-gray-900 text-gray-200 w-full"
         >
             {histories?.data.map((history) => (
                 <div

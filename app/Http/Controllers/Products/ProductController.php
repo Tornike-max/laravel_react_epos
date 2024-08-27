@@ -22,7 +22,26 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $products = Product::query()->with('user')->latest()->paginate(6);
+        if ($request->has('title')) {
+            $search =  $request->get('title');
+            $products = Product::query()
+                ->with('user')
+                ->where('title', 'like', "%$search%")
+                ->latest()
+                ->paginate(6);
+        } else {
+            $products = Product::query()
+                ->with('user')
+                ->latest()
+                ->paginate(6);
+        }
+
+        if ($products->isEmpty()) {
+            return inertia('NotFound/NotFound', [
+                'message' => 'It seems like we don’t have any products available right now. Please check back later or contact support if you need further assistance.'
+            ]);
+        }
+
 
         return inertia('Products/Index', [
             'products' => ProductResource::collection($products),

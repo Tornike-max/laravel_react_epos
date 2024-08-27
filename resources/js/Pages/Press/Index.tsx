@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
 import { PressRelease } from "@/types/types";
+import AnimatedSearchInput from "@/ui/AnimatedSearchInput";
 import { formatDate } from "@/ui/formatDate";
 import NoDataInfo from "@/ui/NoDataInfo";
 import { Head, Link } from "@inertiajs/react";
@@ -44,6 +45,10 @@ const Index = ({ auth, pressRelease }: PageProps) => {
                 }}
                 className="py-12 px-4"
             >
+                <AnimatedSearchInput
+                    routePath="press-release.index"
+                    placeholder="Search by title..."
+                />
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
                         {pressRelease?.data.length !== 0 ? (

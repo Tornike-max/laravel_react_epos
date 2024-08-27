@@ -15,7 +15,18 @@ class PressReleaseController extends Controller
      */
     public function index()
     {
-        $pressReleases = PressRelease::with('product')->latest()->paginate(5);
+        if (request('title')) {
+            $search = request('title');
+            $pressReleases = PressRelease::with('product')->where('info', 'like', "%$search%")->latest()->paginate(5);
+        } else {
+            $pressReleases = PressRelease::with('product')->latest()->paginate(5);
+        }
+
+        if ($pressReleases->isEmpty()) {
+            return inertia('NotFound/NotFound', [
+                'message' => 'It seems like we don’t have any press releases available right now. Please check back later or contact support if you need further assistance.'
+            ]);
+        }
 
         return inertia('Press/Index', [
             'pressRelease' => PressReleaseResource::collection($pressReleases),

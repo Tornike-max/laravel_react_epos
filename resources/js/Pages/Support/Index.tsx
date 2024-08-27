@@ -25,7 +25,7 @@ const Index = ({ auth }: PageProps) => {
     const onSubmit: SubmitHandler<MessageType> = async (data: MessageType) => {
         try {
             setLoading(true);
-            await router.post(route("support.store"), data);
+            router.post(route("support.store"), data);
             setSuccessMessage("Message sent successfully!");
         } catch (error) {
             console.error("Error while sending email", error);

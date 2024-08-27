@@ -27,42 +27,40 @@ const Index = ({ auth }: PageProps) => {
                         duration: 0.5,
                         delay: 0.2,
                     }}
-                    className="w-full flex flex-col items-start justify-center gap-4 sm:pt-4"
+                    className="w-full flex items-center justify-start gap-4 sm:pt-4"
                 >
-                    <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg p-4">
-                        <div
-                            className={`w-full flex items-center justify-start gap-4 text-base font-medium`}
-                        >
-                            <Tooltip title="About" arrow enterDelay={500}>
-                                <span
-                                    onClick={() => {}}
-                                    className="relative cursor-pointer hover:text-gray-300"
-                                >
-                                    About
-                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
-                                </span>
-                            </Tooltip>
-                            <span>|</span>
-                            <Tooltip title="History" arrow enterDelay={500}>
-                                <span
-                                    onClick={() => {}}
-                                    className="relative cursor-pointer hover:text-gray-300"
-                                >
-                                    History
-                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
-                                </span>
-                            </Tooltip>
-                            <span>|</span>
-                            <Tooltip title="Access" arrow enterDelay={500}>
-                                <span
-                                    onClick={() => {}}
-                                    className="relative cursor-pointer hover:text-gray-300"
-                                >
-                                    Access
-                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
-                                </span>
-                            </Tooltip>
-                        </div>
+                    <div
+                        className={`w-full flex items-center justify-start gap-4 text-base font-medium`}
+                    >
+                        <Tooltip title="About" arrow enterDelay={500}>
+                            <span
+                                onClick={() => {}}
+                                className="relative cursor-pointer hover:text-gray-300"
+                            >
+                                About
+                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
+                            </span>
+                        </Tooltip>
+                        <span>|</span>
+                        <Tooltip title="History" arrow enterDelay={500}>
+                            <span
+                                onClick={() => {}}
+                                className="relative cursor-pointer hover:text-gray-300"
+                            >
+                                History
+                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
+                            </span>
+                        </Tooltip>
+                        <span>|</span>
+                        <Tooltip title="Access" arrow enterDelay={500}>
+                            <span
+                                onClick={() => {}}
+                                className="relative cursor-pointer hover:text-gray-300"
+                            >
+                                Access
+                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transition-all duration-500"></span>
+                            </span>
+                        </Tooltip>
                     </div>
                 </motion.div>
             </div>

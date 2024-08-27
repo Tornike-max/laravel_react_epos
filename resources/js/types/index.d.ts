@@ -58,4 +58,5 @@ export type PageProps<
         meta: PaginationMeta;
     };
     member?: User;
+    message?: string;
 };
