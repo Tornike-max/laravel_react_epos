@@ -1,10 +1,4 @@
-import React, {
-    createContext,
-    useState,
-    ReactNode,
-    useContext,
-    useEffect,
-} from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 interface SidebarInterface {
     isOpen: boolean;

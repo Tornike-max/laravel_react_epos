@@ -18,7 +18,7 @@ const OpenSideBar = ({ user }: { user: User }) => {
     const menuItems = [
         {
             label: "Web Site",
-            href: route("products.index"),
+            href: route("welcome"),
             icon: MdOutlineWebAsset,
         },
         {

@@ -1,7 +1,7 @@
-import { Product } from "@/types/types";
 import { useForm } from "@inertiajs/react";
 import { motion, useAnimation } from "framer-motion";
 import { useState } from "react";
+import { useDarkMode } from "@/context/useDarkMode";
 
 const AnimatedSearchInput = ({
     routePath,
@@ -11,7 +11,8 @@ const AnimatedSearchInput = ({
     placeholder: string;
 }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const { data, setData, get, errors, reset } = useForm<Product>();
+    const { data, setData, get } = useForm({ title: "" });
+    const { isDark } = useDarkMode();
 
     const inputControls = useAnimation();
     const buttonControls = useAnimation();
@@ -47,7 +48,9 @@ const AnimatedSearchInput = ({
                     transition={{ type: "spring", stiffness: 300 }}
                 >
                     <svg
-                        className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        className={`w-4 h-4 ${
+                            isDark ? "text-gray-400" : "text-gray-500"
+                        }`}
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -66,17 +69,24 @@ const AnimatedSearchInput = ({
                     type="text"
                     name="title"
                     id="simple-search"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 ${
+                        isDark
+                            ? "dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            : ""
+                    } transition-colors duration-500`}
                     placeholder={placeholder}
                     required
                     onFocus={handleFocus}
+                    onBlur={(e) => {
+                        handleBlur();
+                        setData("title", e.target.value);
+                    }}
                     value={data.title}
-                    onBlur={(e) => setData("title", e.target.value)}
                 />
             </div>
             <motion.button
                 type="submit"
-                className="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors duration-500"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
             >

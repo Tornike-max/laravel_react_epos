@@ -1,148 +1,204 @@
-import { useToggleSidebar } from "@/context/useToggleSidebar";
-import { User } from "@/types";
-import LogoutButton from "@/ui/LogoutButton";
+import { useState, PropsWithChildren, ReactNode } from "react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
-import { Tooltip } from "@mui/material";
-import { motion } from "framer-motion";
-import { AiOutlineTeam, AiOutlineProduct } from "react-icons/ai";
-import {
-    HiOutlineUser,
-    HiMiniChevronDoubleRight,
-    HiOutlineNewspaper,
-    HiOutlineCog6Tooth,
-} from "react-icons/hi2";
-import { IoBagOutline, IoSettingsOutline } from "react-icons/io5";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { MdOutlineWebAsset } from "react-icons/md";
+import { User } from "@/types";
+import ToggleDark from "@/ui/ToggleDark";
+import { useDarkMode } from "@/context/useDarkMode";
 
-const ClosedSideBar = ({ user }: { user: User }) => {
-    const { isOpen, toggleSidebar } = useToggleSidebar();
+export default function Authenticated({
+    user,
+    header,
+    links,
+    children,
+}: PropsWithChildren<{ user: User; header?: ReactNode; links?: ReactNode }>) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
+    const { isDark } = useDarkMode();
+
+    const bgColor = isDark ? "bg-gray-900" : "bg-gray-200";
+    const textColor = isDark ? "text-gray-100" : "text-gray-800";
+    const navBgColor = isDark
+        ? "bg-gray-800 border-gray-700"
+        : "bg-gray-100 border-gray-300";
+    const linkTextColor = isDark
+        ? "text-gray-200 hover:text-white"
+        : "text-gray-800 hover:text-black";
+    const dropdownTextColor = isDark
+        ? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
+        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100";
 
     return (
-        <aside className="sticky top-0 left-0 max-w-16 w-full h-screen bg-gray-900 text-white py-2">
-            <nav className="mt-4">
-                <ul className="flex flex-col gap-2">
-                    <Tooltip
-                        title={user && `${user.name}'s Profile`}
-                        placement="right"
+        <div
+            className={`min-h-screen ${bgColor} ${textColor} transition-colors duration-500`}
+        >
+            <nav
+                className={`border-b ${navBgColor} transition-colors duration-500`}
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between h-16">
+                        <div className="flex">
+                            <div className="shrink-0 flex items-center">
+                                <Link href="/">
+                                    <ApplicationLogo src="/images/epos.png" />
+                                </Link>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href={route("products.index")}
+                                    active={route().current("products.index")}
+                                    className={`${linkTextColor} transition-colors duration-500`}
+                                >
+                                    Products
+                                </NavLink>
+                                <NavLink
+                                    href={route("press-release.index")}
+                                    active={route().current(
+                                        "press-release.index"
+                                    )}
+                                    className={`${linkTextColor} transition-colors duration-500`}
+                                >
+                                    Press Release
+                                </NavLink>
+                                <NavLink
+                                    href={route("company.index", "about")}
+                                    active={route().current("company.index")}
+                                    className={`${linkTextColor} transition-colors duration-500`}
+                                >
+                                    Company
+                                </NavLink>
+                                <NavLink
+                                    href={route("support.index")}
+                                    active={route().current("support.index")}
+                                    className={`${linkTextColor} transition-colors duration-500`}
+                                >
+                                    Support
+                                </NavLink>
+                            </div>
+                        </div>
+                        {user && user.is_admin === 1 && (
+                            <div className="hidden sm:flex sm:items-center sm:ml-6">
+                                <Link
+                                    className={`hover:text-blue-400 duration-300 transition-all font-semibold ${linkTextColor}`}
+                                    href={route("admin")}
+                                >
+                                    Admin Panel
+                                </Link>
+                            </div>
+                        )}
+                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <ToggleDark />
+                        </div>
+                        <div className="-mr-2 flex items-center sm:hidden">
+                            <button
+                                onClick={() =>
+                                    setShowingNavigationDropdown(
+                                        (prevState) => !prevState
+                                    )
+                                }
+                                className={`inline-flex items-center justify-center p-2 rounded-md ${dropdownTextColor} transition-colors duration-500 ease-in-out`}
+                            >
+                                <svg
+                                    className="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        className={
+                                            !showingNavigationDropdown
+                                                ? "inline-flex"
+                                                : "hidden"
+                                        }
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                    <path
+                                        className={
+                                            showingNavigationDropdown
+                                                ? "inline-flex"
+                                                : "hidden"
+                                        }
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className={
+                        (showingNavigationDropdown ? "block" : "hidden") +
+                        " sm:hidden"
+                    }
+                >
+                    <div
+                        className={`p-2 space-y-1 ${navBgColor} transition-colors duration-500`}
                     >
-                        <Link
-                            href={route("profile.edit")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("profile.edit")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
+                        <ResponsiveNavLink
+                            href={route("dashboard")}
+                            active={route().current("dashboard")}
+                            className={`${linkTextColor} transition-colors duration-500`}
                         >
-                            <HiOutlineUser className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Go To Website" placement="right">
-                        <Link
+                            Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
                             href={route("products.index")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("products.index")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
+                            active={route().current("products.index")}
+                            className={`${linkTextColor} transition-colors duration-500`}
                         >
-                            <MdOutlineWebAsset className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Dashboard" placement="right">
-                        <Link
-                            href={route("admin")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
+                            Products
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("press-release.index")}
+                            active={route().current("press-release.index")}
+                            className={`${linkTextColor} transition-colors duration-500`}
                         >
-                            <MdOutlineSpaceDashboard className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Team" placement="right">
-                        <Link
-                            href={route("admin.team")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.team")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
+                            Press Release
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("company.index", "about")}
+                            active={route().current("company.index")}
+                            className={`${linkTextColor} transition-colors duration-500`}
                         >
-                            <AiOutlineTeam className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Products" placement="right">
-                        <Link
-                            href={route("admin.products")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.products")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
+                            Company
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("support.index")}
+                            active={route().current("support.index")}
+                            className={`${linkTextColor} transition-colors duration-500`}
                         >
-                            <AiOutlineProduct className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip title="Press Release" placement="right">
-                        <Link
-                            href={route("admin.press")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.press")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
-                        >
-                            <HiOutlineNewspaper className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip title="Company" placement="right">
-                        <Link
-                            href={route("admin.company")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.company")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
-                        >
-                            <IoBagOutline className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Settings" placement="right">
-                        <Link
-                            href={route("admin.settings.index")}
-                            className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.settings.index")
-                                    ? "bg-blue-700 text-white"
-                                    : "hover:bg-blue-500 hover:text-white"
-                            }`}
-                        >
-                            <HiOutlineCog6Tooth className="w-6 h-6" />
-                        </Link>
-                    </Tooltip>
-
-                    <Tooltip title="Logout" placement="right">
-                        <LogoutButton type="sm" />
-                    </Tooltip>
-
-                    <Tooltip title="Open" placement="right">
-                        <button
-                            onClick={() => toggleSidebar()}
-                            className="w-full mt-4 py-2 px-4 mb-2 flex justify-between items-center hover:bg-blue-500 rounded pr-4"
-                        >
-                            <HiMiniChevronDoubleRight className="w-6 h-6" />
-                        </button>
-                    </Tooltip>
-                </ul>
+                            Support
+                        </ResponsiveNavLink>
+                    </div>
+                </div>
             </nav>
-        </aside>
+            {header && (
+                <header
+                    className={`${navBgColor} shadow transition-colors duration-500`}
+                >
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {header}
+                    </div>
+                </header>
+            )}
+            {links && (
+                <div
+                    className={`${navBgColor} shadow transition-colors duration-500`}
+                >
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {links}
+                    </div>
+                </div>
+            )}
+            <main>{children}</main>
+        </div>
     );
-};
-
-export default ClosedSideBar;
+}

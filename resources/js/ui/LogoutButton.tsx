@@ -49,7 +49,7 @@ const LogoutButton = forwardRef<HTMLFormElement, LogoutButtonProps>(
                         <button
                             type="submit"
                             className={`w-full py-2 px-4 mb-2 flex justify-between items-center rounded pr-4 transition-colors duration-300 ease-in-out ${
-                                route().current("admin.logout")
+                                route().current("logout")
                                     ? "bg-blue-700 text-white"
                                     : "hover:bg-blue-500 hover:text-white"
                             }`}

@@ -5,6 +5,8 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
+import ToggleDark from "@/ui/ToggleDark";
+import { useDarkMode } from "@/context/useDarkMode";
 
 export default function Authenticated({
     user,
@@ -14,10 +16,23 @@ export default function Authenticated({
 }: PropsWithChildren<{ user: User; header?: ReactNode; links?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const { isDark } = useDarkMode();
+
+    const bgColor = isDark ? "bg-gray-900" : "bg-gray-200";
+    const textColor = isDark ? "text-gray-100" : "text-gray-800";
+    const navBgColor = isDark
+        ? "bg-gray-800 border-gray-700"
+        : "bg-gray-100 border-gray-300";
+    const linkTextColor = isDark
+        ? "text-gray-200 hover:text-white"
+        : "text-gray-800 hover:text-black";
+    const dropdownTextColor = isDark
+        ? "text-gray-400 hover:text-gray-300 hover:bg-gray-700"
+        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100";
 
     return (
-        <div className="min-h-screen bg-gray-900 text-gray-100">
-            <nav className="bg-gray-800 border-b border-gray-700">
+        <div className={`min-h-screen ${bgColor} ${textColor}`}>
+            <nav className={`border-b ${navBgColor}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -26,67 +41,60 @@ export default function Authenticated({
                                     <ApplicationLogo src="/images/epos.png" />
                                 </Link>
                             </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("products.index")}
                                     active={route().current("products.index")}
-                                    className="text-gray-200 hover:text-white"
+                                    className={linkTextColor}
                                 >
                                     Products
                                 </NavLink>
-
                                 <NavLink
                                     href={route("press-release.index")}
                                     active={route().current(
                                         "press-release.index"
                                     )}
-                                    className="text-gray-200 hover:text-white"
+                                    className={linkTextColor}
                                 >
                                     Press Release
                                 </NavLink>
-
                                 <NavLink
                                     href={route("company.index", "about")}
                                     active={route().current("company.index")}
-                                    className="text-gray-200 hover:text-white"
+                                    className={linkTextColor}
                                 >
                                     Company
                                 </NavLink>
-
                                 <NavLink
                                     href={route("support.index")}
                                     active={route().current("support.index")}
-                                    className="text-gray-200 hover:text-white"
+                                    className={linkTextColor}
                                 >
                                     Support
                                 </NavLink>
                             </div>
                         </div>
-
-                        {user && user.is_admin === 1 ? (
-                            <div className="hidden sm:flex sm:items-center sm:ms-6">
-                                <div className="ms-3 relative">
-                                    <Link
-                                        className="hover:text-blue-400 duration-300 transition-all font-semibold text-gray-300"
-                                        href={route("admin")}
-                                    >
-                                        Admin Panel
-                                    </Link>
-                                </div>
+                        {user && user.is_admin === 1 && (
+                            <div className="hidden sm:flex sm:items-center sm:ml-6">
+                                <Link
+                                    className={`hover:text-blue-400 duration-300 transition-all font-semibold ${linkTextColor}`}
+                                    href={route("admin")}
+                                >
+                                    Admin Panel
+                                </Link>
                             </div>
-                        ) : (
-                            ""
                         )}
-
-                        <div className="-me-2 flex items-center sm:hidden">
+                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <ToggleDark />
+                        </div>
+                        <div className="-mr-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
-                                        (previousState) => !previousState
+                                        (prevState) => !prevState
                                     )
                                 }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-gray-300 transition duration-150 ease-in-out"
+                                className={`inline-flex items-center justify-center p-2 rounded-md ${dropdownTextColor} transition duration-150 ease-in-out`}
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -121,78 +129,65 @@ export default function Authenticated({
                         </div>
                     </div>
                 </div>
-
                 <div
                     className={
                         (showingNavigationDropdown ? "block" : "hidden") +
                         " sm:hidden"
                     }
                 >
-                    <div className="p-2 space-y-1 bg-gray-800">
+                    <div className={`p-2 space-y-1 ${navBgColor}`}>
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
-                            className="text-gray-300 hover:text-white"
+                            className={linkTextColor}
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
-
-                    <div className="p-2 space-y-1 bg-gray-800">
                         <ResponsiveNavLink
                             href={route("products.index")}
                             active={route().current("products.index")}
-                            className="text-gray-300 hover:text-white"
+                            className={linkTextColor}
                         >
                             Products
                         </ResponsiveNavLink>
-                    </div>
-                    <div className="p-2 space-y-1 bg-gray-800">
                         <ResponsiveNavLink
                             href={route("press-release.index")}
                             active={route().current("press-release.index")}
-                            className="text-gray-300 hover:text-white"
+                            className={linkTextColor}
                         >
                             Press Release
                         </ResponsiveNavLink>
-                    </div>
-                    <div className="p-2 space-y-1 bg-gray-800">
                         <ResponsiveNavLink
                             href={route("company.index", "about")}
                             active={route().current("company.index")}
-                            className="text-gray-300 hover:text-white"
+                            className={linkTextColor}
                         >
                             Company
                         </ResponsiveNavLink>
-                    </div>
-                    <div className="p-2 space-y-1 bg-gray-800">
                         <ResponsiveNavLink
                             href={route("support.index")}
                             active={route().current("support.index")}
-                            className="text-gray-300 hover:text-white"
+                            className={linkTextColor}
                         >
                             Support
                         </ResponsiveNavLink>
                     </div>
                 </div>
             </nav>
-
             {header && (
-                <header className="bg-gray-800 shadow">
+                <header className={`${navBgColor} shadow`}>
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
             )}
-
             {links && (
-                <div className="bg-gray-800 shadow">
+                <div className={`${navBgColor} shadow`}>
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {links}
                     </div>
                 </div>
             )}
-
             <main>{children}</main>
         </div>
     );

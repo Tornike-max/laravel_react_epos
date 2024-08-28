@@ -1,9 +1,8 @@
 import HorizontalScroll from "@/Components/HorizontalCarousel";
+import { useDarkMode } from "@/context/useDarkMode";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { Product } from "@/types/types";
 import AnimatedSearchInput from "@/ui/AnimatedSearchInput";
-import generateImagePath from "@/ui/generateImagePath";
 import Pagination from "@/ui/Pagination";
 import ProductsGrid from "@/ui/ProductsGrid";
 import { Head } from "@inertiajs/react";
@@ -11,6 +10,7 @@ import { useInView, useAnimation, motion } from "framer-motion";
 import { useRef, useEffect } from "react";
 
 const Index = ({ auth, products }: PageProps) => {
+    const { isDark } = useDarkMode();
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
@@ -23,11 +23,16 @@ const Index = ({ auth, products }: PageProps) => {
         }
     }, [isInView]);
 
+    const bgColor = isDark ? "bg-gray-900" : "bg-gray-100";
+    const textColor = isDark ? "text-gray-100" : "text-gray-900";
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-100 leading-tight">
+                <h2
+                    className={`font-semibold text-xl ${textColor} leading-tight transition-colors duration-500`}
+                >
                     Products
                 </h2>
             }
@@ -46,7 +51,7 @@ const Index = ({ auth, products }: PageProps) => {
                     duration: 0.3,
                     delay: 0.2,
                 }}
-                className="py-12 px-4"
+                className={`py-12 px-4 ${bgColor} transition-colors duration-500`}
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="mb-6 w-full">
@@ -65,6 +70,7 @@ const Index = ({ auth, products }: PageProps) => {
                             user={auth.user}
                         />
                     </div>
+
                     <ProductsGrid
                         products={products}
                         auth={{

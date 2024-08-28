@@ -29,9 +29,11 @@ export default function Edit({
                         <UpdatePasswordForm className="max-w-xl" />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
-                    </div>
+                    {auth.user.access_type === "admin" && (
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <DeleteUserForm className="max-w-xl" />
+                        </div>
+                    )}
                 </div>
             </div>
         </AdminLayout>
