@@ -5,6 +5,7 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import { useDarkMode } from "@/context/useDarkMode";
 
 type MessageType = {
     email: string;
@@ -15,6 +16,7 @@ type MessageType = {
 const Index = ({ auth }: PageProps) => {
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const { isDark } = useDarkMode();
 
     const {
         register,
@@ -55,18 +57,34 @@ const Index = ({ auth }: PageProps) => {
                     duration: 0.5,
                     delay: 0.2,
                 }}
-                className="bg-gray-900 text-gray-200 py-12"
+                className={`py-12 transition-all duration-500 ${
+                    isDark
+                        ? "bg-gray-900 text-gray-200"
+                        : "bg-gray-200 text-gray-900"
+                }`}
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div
+                        className={`overflow-hidden shadow-sm sm:rounded-lg ${
+                            isDark
+                                ? "bg-gray-800 text-gray-200"
+                                : "bg-white text-gray-800"
+                        }`}
+                    >
                         <div className="p-6">
                             <form
                                 method="POST"
                                 onSubmit={handleSubmit(onSubmit)}
                                 className="max-w-2xl w-full flex flex-col m-auto gap-4"
                             >
-                                <ApplicationLogo src="/images/epos.png" />
-                                <h1 className="font-semibold text-xl text-gray-100">
+                                <ApplicationLogo
+                                    src={
+                                        isDark === true
+                                            ? "/images/epos.png"
+                                            : "/images/dark-epos.png"
+                                    }
+                                />
+                                <h1 className="font-semibold text-xl">
                                     Please fill out the form.
                                 </h1>
                                 <div className="w-full">
@@ -77,7 +95,11 @@ const Index = ({ auth }: PageProps) => {
                                         type="email"
                                         name="email"
                                         id="email"
-                                        className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 bg-gray-700 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
+                                        className={`block w-full rounded-md border-0 py-2 px-4 ${
+                                            isDark
+                                                ? "bg-gray-700 text-gray-200 ring-gray-600"
+                                                : "bg-gray-200 text-gray-900 ring-gray-300"
+                                        } ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm`}
                                         placeholder="Your Email"
                                     />
                                     {errors.email && (
@@ -94,7 +116,11 @@ const Index = ({ auth }: PageProps) => {
                                             required: "Subject is required",
                                         })}
                                         placeholder="Enter Your Subject"
-                                        className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 bg-gray-700 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
+                                        className={`block w-full rounded-md border-0 py-2 px-4 ${
+                                            isDark
+                                                ? "bg-gray-700 text-gray-200 ring-gray-600"
+                                                : "bg-gray-200 text-gray-900 ring-gray-300"
+                                        } ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm`}
                                     />
                                     {errors.subject && (
                                         <span className="text-red-400 text-xs">
@@ -109,7 +135,11 @@ const Index = ({ auth }: PageProps) => {
                                             required: "Message is required",
                                         })}
                                         placeholder="Enter Your Message"
-                                        className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 bg-gray-700 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
+                                        className={`block w-full rounded-md border-0 py-2 px-4 ${
+                                            isDark
+                                                ? "bg-gray-700 text-gray-200 ring-gray-600"
+                                                : "bg-gray-200 text-gray-900 ring-gray-300"
+                                        } ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm`}
                                     />
                                     {errors.message && (
                                         <span className="text-red-400 text-xs">

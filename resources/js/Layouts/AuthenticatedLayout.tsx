@@ -31,21 +31,31 @@ export default function Authenticated({
         : "text-gray-600 hover:text-gray-800 hover:bg-gray-100";
 
     return (
-        <div className={`min-h-screen ${bgColor} ${textColor}`}>
-            <nav className={`border-b ${navBgColor}`}>
+        <div
+            className={`min-h-screen transform duration-500 transition-all ${bgColor} ${textColor}`}
+        >
+            <nav
+                className={`border-b transform duration-500 transition-all ${navBgColor}`}
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo src="/images/epos.png" />
+                                    <ApplicationLogo
+                                        src={
+                                            isDark === true
+                                                ? "/images/epos.png"
+                                                : "/images/dark-epos.png"
+                                        }
+                                    />
                                 </Link>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("products.index")}
                                     active={route().current("products.index")}
-                                    className={linkTextColor}
+                                    className={`${linkTextColor} transform duration-500 transition-all`}
                                 >
                                     Products
                                 </NavLink>
@@ -54,21 +64,21 @@ export default function Authenticated({
                                     active={route().current(
                                         "press-release.index"
                                     )}
-                                    className={linkTextColor}
+                                    className={`${linkTextColor} transform duration-500 transition-all`}
                                 >
                                     Press Release
                                 </NavLink>
                                 <NavLink
                                     href={route("company.index", "about")}
                                     active={route().current("company.index")}
-                                    className={linkTextColor}
+                                    className={`${linkTextColor} transform duration-500 transition-all`}
                                 >
                                     Company
                                 </NavLink>
                                 <NavLink
                                     href={route("support.index")}
                                     active={route().current("support.index")}
-                                    className={linkTextColor}
+                                    className={`${linkTextColor} transform duration-500 transition-all`}
                                 >
                                     Support
                                 </NavLink>
@@ -94,7 +104,7 @@ export default function Authenticated({
                                         (prevState) => !prevState
                                     )
                                 }
-                                className={`inline-flex items-center justify-center p-2 rounded-md ${dropdownTextColor} transition duration-150 ease-in-out`}
+                                className={`inline-flex items-center justify-center p-2 rounded-md ${dropdownTextColor} transition-all duration-500 ease-in-out`}
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -135,39 +145,41 @@ export default function Authenticated({
                         " sm:hidden"
                     }
                 >
-                    <div className={`p-2 space-y-1 ${navBgColor}`}>
+                    <div
+                        className={`p-2 space-y-1 ${navBgColor} transform duration-500 transition-all`}
+                    >
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
-                            className={linkTextColor}
+                            className={`${linkTextColor} transform duration-500 transition-all`}
                         >
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("products.index")}
                             active={route().current("products.index")}
-                            className={linkTextColor}
+                            className={`${linkTextColor} transform duration-500 transition-all`}
                         >
                             Products
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("press-release.index")}
                             active={route().current("press-release.index")}
-                            className={linkTextColor}
+                            className={`${linkTextColor} transform duration-500 transition-all`}
                         >
                             Press Release
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("company.index", "about")}
                             active={route().current("company.index")}
-                            className={linkTextColor}
+                            className={`${linkTextColor} transform duration-500 transition-all`}
                         >
                             Company
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("support.index")}
                             active={route().current("support.index")}
-                            className={linkTextColor}
+                            className={`${linkTextColor} transform duration-500 transition-all`}
                         >
                             Support
                         </ResponsiveNavLink>
@@ -175,7 +187,9 @@ export default function Authenticated({
                 </div>
             </nav>
             {header && (
-                <header className={`${navBgColor} shadow`}>
+                <header
+                    className={`${navBgColor} duration-500 transition-all shadow`}
+                >
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>

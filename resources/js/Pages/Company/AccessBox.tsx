@@ -1,9 +1,11 @@
 import { AboutType } from "@/types/types";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useDarkMode } from "@/context/useDarkMode";
 
 const AccessBox = ({ data }: { data: AboutType | any }) => {
     const [loadingIframe, setLoadingIframe] = useState(true);
+    const { isDark } = useDarkMode();
 
     useEffect(() => {
         setLoadingIframe(false);
@@ -21,12 +23,19 @@ const AccessBox = ({ data }: { data: AboutType | any }) => {
                 duration: 0.5,
                 delay: 0.2,
             }}
+            className={`transition-all duration-500`}
         >
-            <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg mx-4">
+            <div
+                className={`overflow-hidden shadow-sm sm:rounded-lg mx-4 transition-all duration-500 ${
+                    isDark
+                        ? "bg-gray-800 text-gray-200"
+                        : "bg-white text-gray-800"
+                }`}
+            >
                 <div className="p-6">
                     <div className="w-full flex flex-col items-center py-8 gap-8">
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <p className="max-w-[200px] w-full font-semibold text-sm sm:text-base md:text-lg text-gray-300">
+                            <p className="max-w-[200px] w-full font-semibold text-sm sm:text-base md:text-lg">
                                 Map
                             </p>
                             {loadingIframe && (
@@ -44,7 +53,7 @@ const AccessBox = ({ data }: { data: AboutType | any }) => {
                         </div>
 
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <p className="w-full font-semibold text-sm sm:text-base md:text-lg text-gray-300">
+                            <p className="w-full font-semibold text-sm sm:text-base md:text-lg">
                                 Address
                             </p>
                             <p className="w-full text-sm sm:text-base md:text-lg">

@@ -10,8 +10,10 @@ import {
     HiOutlineDocumentArrowDown,
     HiOutlineVideoCamera,
 } from "react-icons/hi2";
+import { useDarkMode } from "@/context/useDarkMode";
 
 const Show = ({ auth, product }: PageProps) => {
+    const { isDark } = useDarkMode();
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
@@ -38,7 +40,11 @@ const Show = ({ auth, product }: PageProps) => {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-100 leading-tight">
+                <h2
+                    className={`font-semibold text-xl duration-500 transition-all leading-tight ${
+                        isDark ? "text-gray-100" : "text-gray-800"
+                    }`}
+                >
                     Products
                 </h2>
             }
@@ -60,7 +66,13 @@ const Show = ({ auth, product }: PageProps) => {
                 className="py-12 px-4"
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-gray-800 text-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div
+                        className={`overflow-hidden shadow-sm sm:rounded-lg duration-500 transition-all ${
+                            isDark
+                                ? "bg-gray-800 text-gray-200"
+                                : "bg-gray-100 text-gray-900"
+                        }`}
+                    >
                         <div className="flex justify-center items-center gap-4 p-4">
                             <img
                                 className="max-w-lg w-full rounded-md"
@@ -68,11 +80,21 @@ const Show = ({ auth, product }: PageProps) => {
                                 alt=""
                             />
                             <div className="w-full flex justify-start items-start flex-col">
-                                <h1 className="font-semibold text-lg sm:text-xl md:text-2xl text-gray-100">
+                                <h1
+                                    className={`font-semibold text-lg sm:text-xl md:text-2xl duration-500 transition-all ${
+                                        isDark
+                                            ? "text-gray-100"
+                                            : "text-gray-900"
+                                    }`}
+                                >
                                     {product?.title}
                                 </h1>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-2 text-gray-300`}
+                                    className={`text-sm sm:text-base flex items-center gap-2 duration-500 transition-all ${
+                                        isDark
+                                            ? "text-gray-300"
+                                            : "text-gray-700"
+                                    }`}
                                 >
                                     <span>Release Date:</span>
                                     <span>
@@ -80,13 +102,21 @@ const Show = ({ auth, product }: PageProps) => {
                                     </span>
                                 </p>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-4 text-gray-300`}
+                                    className={`text-sm sm:text-base flex items-center gap-4 duration-500 transition-all ${
+                                        isDark
+                                            ? "text-gray-300"
+                                            : "text-gray-700"
+                                    }`}
                                 >
                                     <span>Genre:</span>
                                     <span>{product?.genre}</span>
                                 </p>
                                 <p
-                                    className={`text-sm sm:text-base flex items-center gap-4 text-gray-300`}
+                                    className={`text-sm sm:text-base flex items-center gap-4 duration-500 transition-all ${
+                                        isDark
+                                            ? "text-gray-300"
+                                            : "text-gray-700"
+                                    }`}
                                 >
                                     <span>For:</span>
                                     <span>{product?.for}</span>
@@ -102,7 +132,11 @@ const Show = ({ auth, product }: PageProps) => {
                                         href={
                                             "https://www.youtube.com/watch?v=1NjOWtQ7S2o&list=PL3VM-unCzF8hy47mt9-chowaHNjfkuEVz"
                                         }
-                                        className=" px-3 py-2 md:px-4 md:py-3 text-lg flex items-center gap-2 font-medium bg-blue-700 hover:bg-blue-800 text-white w-fit  transform duration-500 transition-all rounded-lg"
+                                        className={`px-3 py-2 md:px-4 md:py-3 text-lg flex items-center gap-2 duration-500 transition-all font-medium w-fit transform duration-500 transition-all rounded-lg ${
+                                            isDark
+                                                ? "bg-blue-700 hover:bg-blue-800 text-white"
+                                                : "bg-blue-500 hover:bg-blue-600 text-white"
+                                        }`}
                                     >
                                         <HiOutlineVideoCamera />
                                         <span>Trailer</span>
@@ -116,7 +150,11 @@ const Show = ({ auth, product }: PageProps) => {
                                                 product?.gameUrl || ""
                                             )
                                         }
-                                        className={`py-2 px-3 w-full rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center gap-2 text-slate-100 text-xs md:text-sm lg:text-base duration-500 transition-all ${
+                                        className={`py-2 px-3 w-full rounded-md flex items-center justify-center gap-2 duration-500 transition-all ${
+                                            isDark
+                                                ? "bg-blue-500 hover:bg-blue-600 text-slate-100"
+                                                : "bg-blue-400 hover:bg-blue-500 text-slate-900"
+                                        } ${
                                             product?.gameUrl
                                                 ? "cursor-pointer"
                                                 : "cursor-not-allowed"
@@ -140,13 +178,19 @@ const Show = ({ auth, product }: PageProps) => {
                         />
                         <div className="w-full flex items-start justify-center flex-col gap-4 p-4">
                             <h3
-                                className={`w-full text-start text-xl sm:text-2xl font-semibold text-gray-100`}
+                                className={`w-full text-start text-xl sm:text-2xl font-semibold ${
+                                    isDark ? "text-gray-100" : "text-gray-900"
+                                }`}
                             >
                                 Product Summary
                             </h3>
-                            <div className={`w-full text-start`}>
+                            <div className="w-full text-start">
                                 <p
-                                    className={`font-medium text-base sm:text-lg text-gray-400`}
+                                    className={`font-medium text-base sm:text-lg ${
+                                        isDark
+                                            ? "text-gray-400"
+                                            : "text-gray-700"
+                                    }`}
                                 >
                                     {product?.description}
                                 </p>

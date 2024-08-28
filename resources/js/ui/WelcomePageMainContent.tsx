@@ -11,7 +11,7 @@ const WelcomePageMainContent = () => {
                     href={route("products.index")}
                     className="flex items-start gap-4 rounded-lg bg-gray-900 p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
                 >
-                    <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
+                    <div className="hidden sm:flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
                         <AiOutlineProduct className="text-3xl text-red-600" />
                     </div>
 
@@ -47,7 +47,7 @@ const WelcomePageMainContent = () => {
                     href={route("press-release.index")}
                     className="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
                 >
-                    <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
+                    <div className="hidden sm:flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
                         <HiOutlineNewspaper className="text-3xl text-red-600" />
                     </div>
 
@@ -84,7 +84,7 @@ const WelcomePageMainContent = () => {
                 href={route("press-release.index")}
                 className="flex mt-6 lg:mt-8 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-500 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20] opacity-80 hover:opacity-100"
             >
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
+                <div className="hidden sm:flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10 sm:size-16">
                     <IoBagOutline className="text-3xl text-red-600 " />
                 </div>
                 <div className="pt-3 sm:pt-5">

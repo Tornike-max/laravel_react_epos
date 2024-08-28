@@ -32,7 +32,7 @@ export default function Welcome({
             <motion.div
                 className="bg-cover bg-center bg-gray-900 text-black/50 dark:bg-black dark:text-white/50"
                 style={{
-                    backgroundImage: "url('images/4.jpg')",
+                    backgroundImage: "url('images/6.jpg')",
                 }}
                 variants={containerVariants}
                 initial="hidden"

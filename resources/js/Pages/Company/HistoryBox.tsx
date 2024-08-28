@@ -2,8 +2,11 @@ import { PageProps } from "@/types";
 import { formatDate } from "@/ui/formatDate";
 import Pagination from "@/ui/Pagination";
 import { motion } from "framer-motion";
+import { useDarkMode } from "@/context/useDarkMode";
 
 const HistoryBox = ({ histories }: PageProps) => {
+    const { isDark } = useDarkMode();
+
     return (
         <motion.div
             variants={{
@@ -16,19 +19,25 @@ const HistoryBox = ({ histories }: PageProps) => {
                 duration: 0.5,
                 delay: 0.2,
             }}
-            className="bg-gray-900 text-gray-200 w-full"
+            className={`w-full transition-all duration-500 ${
+                isDark
+                    ? "bg-gray-900 text-gray-200"
+                    : "bg-gray-200 text-gray-800"
+            }`}
         >
             {histories?.data.map((history) => (
                 <div
                     key={history.id}
-                    className="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mx-4 my-4"
+                    className={`overflow-hidden shadow-sm sm:rounded-lg mx-4 my-4 transition-all duration-500 ${
+                        isDark ? "bg-gray-800" : "bg-white"
+                    }`}
                 >
                     <div className="p-6">
                         <div className="w-full flex flex-col justify-center items-start gap-4">
-                            <h1 className="font-bold text-lg sm:text-xl text-gray-100">
+                            <h1 className="font-bold text-lg sm:text-xl">
                                 {formatDate(history.date)}
                             </h1>
-                            <p className="font-medium text-sm sm:text-base text-gray-300">
+                            <p className="font-medium text-sm sm:text-base">
                                 {history.description}
                             </p>
                         </div>
