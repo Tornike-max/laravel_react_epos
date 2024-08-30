@@ -22,6 +22,10 @@ const Index = ({ auth, pressRelease }: PageProps) => {
         }
     }, [isInView]);
 
+    const containerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+    };
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -38,16 +42,10 @@ const Index = ({ auth, pressRelease }: PageProps) => {
             <Head title="Press Release" />
             <motion.div
                 ref={ref}
-                variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
-                }}
+                variants={containerVariants}
                 initial="hidden"
-                animate={mainControls}
-                transition={{
-                    duration: 0.3,
-                    delay: 0.2,
-                }}
+                animate="visible"
+                transition={{ duration: 0.5 }}
                 className="py-12 px-4"
             >
                 <AnimatedSearchInput

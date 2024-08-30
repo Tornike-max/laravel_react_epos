@@ -16,37 +16,33 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
+        $search = $request->get('title');
 
-        if ($request->has('title')) {
-            $search =  $request->get('title');
-            $products = Product::query()
-                ->with('user')
-                ->where('title', 'like', "%$search%")
-                ->latest()
-                ->paginate(6);
-        } else {
-            $products = Product::query()
-                ->with('user')
-                ->latest()
-                ->paginate(6);
-        }
+        $products = Product::query()
+            ->with('user')
+            ->latest()
+            ->paginate(6);
 
-        if ($products->isEmpty()) {
-            return inertia('NotFound/NotFound', [
-                'message' => 'It seems like we don’t have any products available right now. Please check back later or contact support if you need further assistance.'
-            ]);
-        }
-
+        $searchedProducts = $search
+            ? Product::query()
+            ->with('user')
+            ->where('title', 'like', "%{$search}%")
+            ->latest()
+            ->paginate(6)
+            : Product::query()
+            ->with('user')
+            ->latest()
+            ->paginate(6);;
 
         return inertia('Products/Index', [
             'products' => ProductResource::collection($products),
+            'searchedProducts' => $searchedProducts ? ProductResource::collection($searchedProducts) : null,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

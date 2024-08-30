@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/react";
 import { useInView, useAnimation, motion } from "framer-motion";
 import { useRef, useEffect } from "react";
 
-const Index = ({ auth, products }: PageProps) => {
+const Index = ({ auth, products, searchedProducts }: PageProps) => {
     const { isDark } = useDarkMode();
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
@@ -26,6 +26,11 @@ const Index = ({ auth, products }: PageProps) => {
     const bgColor = isDark ? "bg-gray-900" : "bg-gray-100";
     const textColor = isDark ? "text-gray-100" : "text-gray-900";
 
+    const containerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -41,26 +46,13 @@ const Index = ({ auth, products }: PageProps) => {
 
             <motion.div
                 ref={ref}
-                variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
-                }}
+                variants={containerVariants}
                 initial="hidden"
-                animate={mainControls}
-                transition={{
-                    duration: 0.3,
-                    delay: 0.2,
-                }}
+                animate="visible"
+                transition={{ duration: 0.5 }}
                 className={`py-12 px-4 ${bgColor} transition-colors duration-500`}
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="mb-6 w-full">
-                        <AnimatedSearchInput
-                            routePath="products.index"
-                            placeholder="Search by title..."
-                        />
-                    </div>
-
                     <div className="hidden md:block">
                         <HorizontalScroll
                             products={products}
@@ -70,9 +62,15 @@ const Index = ({ auth, products }: PageProps) => {
                             user={auth.user}
                         />
                     </div>
+                    <div className="mb-6 w-full">
+                        <AnimatedSearchInput
+                            routePath="products.index"
+                            placeholder="Search by title..."
+                        />
+                    </div>
 
                     <ProductsGrid
-                        products={products}
+                        products={searchedProducts}
                         auth={{
                             user: auth.user,
                         }}

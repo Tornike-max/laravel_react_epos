@@ -34,6 +34,11 @@ export type PageProps<
         links: PaginationLinks;
         meta: PaginationMeta;
     };
+    searchedProducts?: {
+        data: Product[];
+        links: PaginationLinks;
+        meta: PaginationMeta;
+    };
     product?: Product;
     pressRelease?: {
         data: PressRelease[];

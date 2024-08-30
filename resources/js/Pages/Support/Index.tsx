@@ -35,7 +35,10 @@ const Index = ({ auth }: PageProps) => {
             setLoading(false);
         }
     };
-
+    const containerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+    };
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -47,16 +50,10 @@ const Index = ({ auth }: PageProps) => {
         >
             <Head title="Support" />
             <motion.div
-                variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
-                }}
+                variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{
-                    duration: 0.5,
-                    delay: 0.2,
-                }}
+                transition={{ duration: 0.5 }}
                 className={`py-12 transition-all duration-500 ${
                     isDark
                         ? "bg-gray-900 text-gray-200"
